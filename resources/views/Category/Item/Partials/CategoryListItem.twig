@@ -1,4 +1,4 @@
-{{ component( "ABC::Basket.Components.AddToBasket" ) }}
+{{ component( "Ceres::Basket.Components.AddToBasket" ) }}
 
 {% import "Ceres::PageDesign.Macros.LayoutContainer" as LayoutContainer %}
 {% import "Ceres::PageDesign.Macros.ItemName" as ItemName %}
@@ -57,7 +57,7 @@
 
           <div class="article-btn">
             <a href="{{ itemUrl }}" title="zum Artikel"><i class="fa chevron-right"></i> zum Artikel</a>
-        </div>        
+        </div>
         {{ AddToBasket.printTwigComponent( item.data ) }}
       </div>
     </div>
