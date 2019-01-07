@@ -2,6 +2,7 @@
 
 {% import "Ceres::PageDesign.Macros.LayoutContainer" as LayoutContainer %}
 {% import "Ceres::PageDesign.Macros.ItemName" as ItemName %}
+{% import "Ceres::Basket.Macros.AddToBasket" as AddToBasket %}
 
 {% set image = item.data.images.all | first %}
 {% set itemUrl =  item.data | itemURL %}
