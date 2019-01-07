@@ -51,17 +51,7 @@
             </user-login-handler>
           </li>
           <li class="list-inline-item control-basket">
-            <a v-toggle-basket-preview="v-toggle-basket-preview" href="#" class="toggle-basket-preview">
-              Warenkorb
-                <span  v-basket-item-quantity="$store.state.basket.data.itemQuantity">0</span>
-              Artikel |
-              {% if config("Ceres.header.basket_values") != "quantity" %}
-                <span class="badge" v-if="!$store.state.basket.showNetPrices" v-basket-item-sum="$store.state.basket.data.itemSum">0,00
-                  {{ services.checkout.getCurrencyData()[currencyFormat] }}</span>
-                <span class="badge" v-else="v-else" v-cloak="v-cloak" v-basket-item-sum="$store.state.basket.data.itemSumNet">0,00
-                  {{ services.checkout.getCurrencyData()[currencyFormat] }}</span>
-              {% endif %}
-            </a>
+            
 
             {% if config("Ceres.basket.preview_type") != "right" %}
               <basket-preview template="#vue-basket-preview-hover" :show-net-prices="{{ showNetPrices | json_encode }}"></basket-preview>
