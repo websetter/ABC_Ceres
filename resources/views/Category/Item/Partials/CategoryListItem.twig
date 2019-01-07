@@ -57,12 +57,7 @@
 
           <div class="article-btn">
             <a href="{{ itemUrl }}" title="zum Artikel"><i class="fa chevron-right"></i> zum Artikel</a>
-        </div>
-        <div class="add-to-basket-container">
-          <div class="quantity-input-container">
-            <quantity-input :value="1" @quantity-change="updateQuantity" :timeout="0" :min="minimumQuantity" :max="maximumQuantity" :interval="intervalQuantity" :variation-id="item.data.variation.id" template="#vue-quantity-input"></quantity-input>
-          </div>
-        </div>
+        </div>        
         {{ AddToBasket.printTwigComponent( item.data ) }}
       </div>
     </div>
