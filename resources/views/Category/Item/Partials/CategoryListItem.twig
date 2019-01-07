@@ -60,7 +60,7 @@
         </div>
         <div class="add-to-basket-container">
           <div class="quantity-input-container">
-            <quantity-input :value="1" @quantity-change="updateQuantity" :timeout="0" :min="minimumQuantity" :max="maximumQuantity" :interval="intervalQuantity" :variation-id="variationId" template="#vue-quantity-input"></quantity-input>
+            <quantity-input :value="1" @quantity-change="updateQuantity" :timeout="0" :min="minimumQuantity" :max="maximumQuantity" :interval="intervalQuantity" :variation-id="item.data.variation.id" template="#vue-quantity-input"></quantity-input>
           </div>
         </div>
         {{ AddToBasket.printTwigComponent( item.data ) }}
