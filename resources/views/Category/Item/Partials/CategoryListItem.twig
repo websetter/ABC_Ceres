@@ -56,7 +56,10 @@
           <div class="article-btn">
             <a href="{{ itemUrl }}" title="zum Artikel"><i class="fa chevron-right"></i> zum Artikel</a>
         </div>
-        
+        <div class="basket-btn">
+              {{ AddToBasket.printTwigComponent( item.data ) }}
+          </div>
+
       </div>
     </div>
 </article>
