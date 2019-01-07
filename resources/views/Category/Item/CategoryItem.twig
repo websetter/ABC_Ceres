@@ -15,6 +15,11 @@
 
     {% set shippingCat = config("Ceres.global.shippingCostsCategoryId") %}
 
+<div id="nohome">
+  <div id="bigPic">
+    {% include category_template( category.id, lang, 0 ) ignore missing %}
+  </div>
+</div>
 <div class="container-max">
   <div class="row">
     <main class="col-xs-12 categoriegrid page-content categoryItem cat-id-{{ category.id}}">
