@@ -1,0 +1,39 @@
+{% import "Ceres::PageDesign.Macros.LayoutContainer" as LayoutContainer %}
+{% if footerContent is not defined %}
+  {% set footerContent = services.category.get(1421, lang) %}
+{% endif %}
+<footer>
+  <div class="footerTop">
+    <div class="container-max">
+      <div class="row">
+        {{ footerContent.details.first.description | raw }}
+      </div>
+    </div>
+  </div>
+  <div class="footerBottom">
+    <div class="container-max">
+      <div class="row">
+        <div class="col-xs-12">
+          <span class="werk38 sm">
+            <a href="http://www.werk38.de/" title="WERK38 - Manufaktur für Print &amp; Web" target="_blank"></a>
+            <a class="hidden-xs" href="http://www.werk38.de/" title="WERK38 - Manufaktur für Print &amp; Web" target="_blank">Entwicklung by WERK38</a>
+          </span>
+          <span class="center">© 2019 DEKONEX Europe GmbH</span>
+          <span class="toTop sm visible" data-plenty="UI.initToTop(this)">
+            <a href="#top">
+              <span class="fa fa-chevron-up"></span></a>
+          </span>
+          <span class="xs">
+            <span class="werk38">
+              <a href="#" title="WERK38 - Manufaktur für Print &amp; Web" target="_blank"></a>
+            </span>
+            <span class="toTop visible" data-plenty="UI.initToTop(this)">
+              <a href="#top">
+                <span class="fa fa-chevron-up"></span></a>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

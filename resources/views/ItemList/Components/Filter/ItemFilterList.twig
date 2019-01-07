@@ -1,0 +1,19 @@
+<script type="x/template" id="vue-item-filter-list">
+    <div class="filter-wrapper" v-show="facets && facets.length > 0">
+        {{ component( "ABC::ItemList.Components.Filter.ItemFilter") }}
+        {{ component( "Ceres::ItemList.Components.Filter.ItemFilterPrice") }}
+
+        <a class="btn btn-link filter-toggle hidden-md-up" data-toggle="collapse" href="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse" @click="toggleOpeningState()">
+           <i class="fa fa-sliders default-float" aria-hidden="true"></i> {{ trans("Ceres::Template.itemFilter") }}
+       </a>
+
+        <div class="collapse" :class="{in: isActive}" id="filterCollapse">
+              <ul class="card-columns">
+                  <item-filter v-for="facet in facets" v-if="!(facet.id == 'feedback')" :facet="facet" :key="facet.id"></item-filter>
+              </ul>
+              <button type="button" class="btn btn-primary btn-medium"  @click="removeTag(all)">
+                  <i class="fa fa-times" aria-hidden="true"></i> Zurücksetzen
+              </button>
+        </div>
+    </div>
+</script>

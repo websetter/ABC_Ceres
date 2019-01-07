@@ -1,0 +1,22 @@
+{% set isNameEmpty = trans("ABC::Template.itemList" ~ itemListNo ~ "ListName") == 'Name' or
+                     trans("ABC::Template.itemList" ~ itemListNo ~ "ListName") is empty %}
+
+{% if listType == "last_seen" %}
+    {% if isNameEmpty %}
+        {% set header = trans("ABC::Template.itemListLastSeen") %}
+    {% else %}
+        {% set header = trans("ABC::Template.itemList" ~ itemListNo ~ "ListName") %}
+    {% endif %}
+{% elseif listType == "cross_selling" %}
+    {% if isNameEmpty %}
+        {% set header = trans("ABC::Template.itemListX" ~ config("Ceres.item.lists.cross_selling_type")) %}
+    {% else %}
+        {% set header = trans("ABC::Template.itemList" ~ itemListNo ~ "ListName") %}
+    {% endif %}
+{% elseif listType == "tag_list" %}
+    {% if isNameEmpty %}
+        {% set header = "Tags" %}
+    {% else %}
+        {% set header = trans("ABC::Template.itemList" ~ itemListNo ~ "ListName") %}
+    {% endif %}
+{% endif %}

@@ -1,0 +1,23 @@
+<!-- Insert markup for navigation here -->
+{% set companyLogo = config("Ceres.header.company_logo") %}
+{% set lang = services.sessionStorage.getLang() %}
+{% set showHeaderNavBar = config("Ceres.header.show_navbars") %}
+{% set companyName = trans("Ceres::Template.headerCompanyName") %}
+{% set useMegaMenu = config("Ceres.header.megamenu_levels") > 1 %}
+
+<nav class="navbar megamenu">
+  <button id="btnMainMenuToggler" v-open-mobile-navigation="v-open-mobile-navigation" class="navbar-toggler hidden-lg-up" type="button">
+    &#9776;
+  </button>
+
+  <div id="mainNavbarCollapsable">
+    <ul class="breadcrumb">
+      <li class="btnClose"></li>
+    </ul>
+    {% if showHeaderNavBar == "top" or showHeaderNavBar == "both" or not services.template.isCategory() %}
+      {# includeCached('Ceres::PageDesign.Partials.Header.NavigationList.twig') #}
+      {% include "ABC::PageDesign.Partials.Header.NavigationList" %}
+    {% endif %}
+  </div>
+
+</nav>

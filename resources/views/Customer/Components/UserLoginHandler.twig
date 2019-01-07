@@ -1,0 +1,29 @@
+<!-- Insert markup for user login handler here -->
+<script type="x/template" id="vue-user-login-handler">
+    <div id="login-change">
+        <div class="dropdown" v-if="isLoggedIn">
+            <a href="#" class="dropdown-toggle" id="accountMenuList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span>{{ trans("Ceres::Template.myAccount") }}</span>
+            </a>
+            <div class="account-menu dropdown-menu dropdown-menu-right small">
+              <div class="list-group" aria-labelledby="accountMenuList" >
+                <a href="/my-account" class="list-group-item small"><i class="fa fa-user"></i> {{ trans("Ceres::Template.myAccount") }}</a>
+                <a href="#" class="list-group-item small" v-logout><i class="fa fa-sign-out"></i> {{ trans("Ceres::Template.loginLogout") }}</a>
+              </div>
+            </div>
+        </div>
+        <div v-if="!isLoggedIn">
+            <a href="#" class="dropdown-toggle" id="loginList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span>{{ trans("Ceres::Template.login") }}</span>
+            </a>
+            <div class="login-menu dropdown-menu dropdown-menu-right small">
+              <div class="list-group" aria-labelledby="loginList" >
+                <a data-toggle="modal" href="{% if services.template.isCurrentTemplate("tpl.login") %}javascript:void(0){% else %}#login{% endif %}" @click="unmarkInputFields()" class="list-group-item smaller"><i class="fa fa-user"></i> {{ trans("Ceres::Template.login") }}</a>
+                <a data-toggle="modal" href="#registration" class="list-group-item smaller"><i class="fa fa-user-plus"></i> {{ trans("Ceres::Template.loginRegister") }}</a>
+              </div>
+            </div>
+        </div>
+    </div>
+</script>

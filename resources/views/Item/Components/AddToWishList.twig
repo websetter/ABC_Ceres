@@ -1,0 +1,8 @@
+<script type="x/template" id="vue-add-to-wish-list">
+    <div>
+        <a class="add-to-wish-list" :class="{active: isVariationInWishList}" @click.prevent="switchState()" data-toggle="tooltip" data-placement="top" title="">
+            <i v-waiting-animation="isLoading"></i>
+            {{ trans("ABC::Template.singleItemWishList") }}
+        </a>
+    </div>
+</script>

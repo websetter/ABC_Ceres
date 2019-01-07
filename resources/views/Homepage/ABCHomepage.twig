@@ -1,0 +1,104 @@
+{% import "Ceres::PageDesign.Macros.LayoutContainer" as LayoutContainer %}
+{% import "Ceres::PageDesign.Macros.ItemName" as ItemName %}
+
+{% set overrideHomepageContainer = "" %}
+{% for content in container("Ceres::Homepage")if content.plugin != "Plenty" %}
+  {% set overrideHomepageContainer = overrideHomepageContainer ~ content.result %}
+{% endfor %}
+
+{% if slider is not defined %}
+  {% set slider = services.category.get(453, lang) %}
+{% endif %}
+
+{% if overrideHomepageContainer | trim is empty %}
+
+  {% set lang = services.sessionStorage.getLang() %}
+  {% set category1 = services.category.get(config("Ceres.homepage.homepageCategory1"), lang) %}
+  {% set category2 = services.category.get(config("Ceres.homepage.homepageCategory2"), lang) %}
+  {% set category3 = services.category.get(config("Ceres.homepage.homepageCategory3"), lang) %}
+  {% set category4 = services.category.get(config("Ceres.homepage.homepageCategory4"), lang) %}
+  {% set category5 = services.category.get(config("Ceres.homepage.homepageCategory5"), lang) %}
+  {% set category6 = services.category.get(config("Ceres.homepage.homepageCategory6"), lang) %}
+
+  {% set paginatedCategoryList1 = services.itemLoader.loadForTemplate('Ceres::ItemList.ItemListView', itemLoaderPresets.categoryList, {
+    'categoryId': category3.id,
+    'page': 1,
+    'items': 4,
+    'sorting': itemSort
+  }) %}
+
+  {% set paginatedCategoryList2 = services.itemLoader.loadForTemplate('Ceres::ItemList.ItemListView', itemLoaderPresets.categoryList, {
+    'categoryId': category6.id,
+    'page': 1,
+    'items': 4,
+    'sorting': itemSort
+  }) %}
+
+  {% set categoryList1 = paginatedCategoryList1.documents %}
+  {% set categoryList2 = paginatedCategoryList2.documents %}
+
+  {{ component( "Ceres::ItemList.Components.ItemList") }}
+  {{ component( "Ceres::ItemList.Components.CategoryImageCarousel") }}
+  {{ component( "ABC::Basket.Components.AddToBasket" ) }}
+
+  <div id="home">
+    <div id="slider" class="home">
+      {{ slider.details.first.description | raw }}
+    </div>
+    <div class="container-max">
+      <div class="row productPreview">
+        <h2 class="text-right">Unsere Produkte</h2>
+        <div class="col-xs-12 col-md-6 boxLeft lila">
+          <a href="/einkoch-und-kochautomaten/einkochautomat-27-l/a-138/" title="Zu unserem Einkochautomat mit Ausguss">
+            <img src="/images/gallery/template/einkochautomat-mit-ausguss.png" alt="Topf">
+            <h3>Einkochautomat</h3>
+            <h4>Mit Auslaufhahn</h4>
+          </a>
+          <a class="link" title="Zur Produktübersicht" href="https://www.abc-einkochautomaten.de/einkochautomaten-kochautomaten/">Produktübersicht
+            <span>▶</span></a>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 box lila1">
+              <a href="/einkoch-und-kochautomaten/partykocher-16-l/a-137/" title="Zu unserem Partykocher ohne Ausguss">
+                <span><img src="/images/gallery/template/partypot-16l-ohne-ausguss.png" alt="Topf"></span>
+                <h3>Partykocher</h3>
+                <h4>Ohne Auslaufhahn</h4>
+              </a>
+            </div>
+            <div class="col-xs-12 col-sm-6 box lila2">
+              <a href="einkoch-und-kochautomaten/partykocher-16-l/a-136/" title="Zu unserem Partykocher mit Ausguss">
+                <span><img src="/images/gallery/template/partypot-16l-mit-ausguss.png" alt="Topf"></span>
+                <h3>Partykocher</h3>
+                <h4>Mit Auslaufhahn</h4>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 box lila3">
+              <a href="/einkoch-und-kochautomaten/einkochautomat-27-l/a-139/" title="Zu unserem Einkochautomat ohne Ausguss">
+                <span><img src="/images/gallery/template/einkochautomat-ohne-ausguss.png" alt="Topf"></span>
+                <h3>Einkochautomat</h3>
+                <h4>Ohne Auslaufhahn</h4>
+              </a>
+            </div>
+            <div class="col-xs-12 col-sm-6 box lila4">
+              <a href="https://www.abc-einkochautomaten.de/einkoch-zubehoer/" title="Zu unserem Zubehör">
+                <span><img src="/images/gallery/template/dekonex-eingemachtes.png" alt="Topf"></span>
+                <h3>Einmachgläser</h3>
+                <h4>und Zubehör</h4>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-3">
+        <div class="col-lg-12">
+          {{ slider.details.first.description2 | raw }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  {{ overrideHomepageContainer | raw }}
+{% endif %}
