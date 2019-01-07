@@ -42,8 +42,18 @@
   {{ component( "ABC::Basket.Components.AddToBasket" ) }}
 
   <div id="home">
-    <div id="slider" class="home">
-      {{ slider.details.first.description | raw }}
+    <div id="slider" class="home carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        {{ slider.details.first.description | raw }}
+      </div>
+      <a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
+            <span class="fa fa-angle-left" aria-hidden="true"></span>
+            <span class="sr-only">Zurück</span>
+          </a>
+          <a class="carousel-control-next" href="#slider" role="button" data-slide="next">
+            <span class="fa fa-angle-right" aria-hidden="true"></span>
+            <span class="sr-only">Weiter</span>
+          </a>
     </div>
     <div class="container-max">
       <div class="row productPreview">
