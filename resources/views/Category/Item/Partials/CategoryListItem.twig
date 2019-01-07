@@ -12,6 +12,9 @@
 
 <article class="product-inner">
     <div class="thumb-inner">
+      <a href="{{ itemUrl }}" class="thumb-title">
+          {{ ItemName.get(item.data | itemName, item.data.variation.bundleType) }}
+      </a>
         <div class="thumb-image">
             <div class="square-container">
                 <div class="square-inner main-image">
@@ -34,68 +37,40 @@
                 </div>
             </div>
         </div>
-
-        <!-- STORE SPECIALS -->
-        {% if item.data.item.storeSpecial.id > 0 or item.data.variation.bundleType == "bundle" %}
-          {% set storeSpecial = item.data.item.storeSpecial.names.name %}
-            <div class="special-tags">
-                {% if  item.data.item.storeSpecial.id == 1 %}
-                    {% set storeSpecialColor = 'danger' %}
-                    {% set percent = 0 %}
-                    {% if item.data.prices.rrp is defined %}
-                        {% set percent = (1 - item.data.prices.default.unitPrice.value / item.data.prices.rrp.price.value ) * -100 %}
-                    {% endif %}
-                    {% if percent <= 0 %}
-                        {% set dezimalcount = ceresConfig.item.storeSpecial %}
-                        {% set percent = percent | number_format(dezimalcount, ',', '.') %}
-                        {% set storeSpecial = percent ~"%" %}
-                    {% endif %}
-                {% elseif  item.data.item.storeSpecial.id == 2 %}
-                    {% set storeSpecialColor = 'primary' %}
-                {% elseif  item.data.item.storeSpecial.id == 3 %}
-                    {% set storeSpecialColor = 'success' %}
-                {% endif %}
-                {% if item.data.variation.bundleType == "bundle" %}
-                    <span class="tag bg-info">
-                        {{ trans("Ceres::Template.itemBundle") }}
-                    </span>
-                {% else %}
-                    <span class="tag bg-{{ storeSpecialColor }}">
-                        {{ storeSpecial }}
-                    </span>
-                {% endif %}
-            </div>
-        {% endif %}
-        <!-- ./STORE SPECIALS -->
-
-        <hr>
         <div class="thumb-content">
-          <a href="{{ itemUrl }}" class="thumb-title">
-              {{ ItemName.get(item.data | itemName, item.data.variation.bundleType) }}
-          </a>
           {{ LayoutContainer.show("Ceres::CategoryItem.BeforePrices", item.data) }}
 
           <div class="prices">
-                <del class="crossprice">
-                  {% if item.data.prices.rrp is defined and item.data.prices.rrp.price.value != 0 and item.data.prices.rrp.price.value > item.data.prices.default.unitPrice.value %}
-                    {{ trans("ABC::Template.UVP") }} {{ item.data.prices.rrp.price.formatted }}
-                   {% endif %}
-                </del>
               <div class="price">
                   {{ item.data.prices.default.unitPrice.formatted }}
               </div>
-
-              <div class="artSold">
-                {%  for variationProperty in item.data.variationProperties %}
-                   {% if variationProperty.property.id == 1 %}
-                     <p>{{ variationProperty.values.value }} verkauft*</p>
-                  {% endif %}
-                {% endfor %}
+              <del class="crossprice">
+                {% if item.data.prices.rrp is defined and item.data.prices.rrp.price.value != 0 and item.data.prices.rrp.price.value > item.data.prices.default.unitPrice.value %}
+                  {{ trans("ABC::Template.UVP") }} {{ item.data.prices.rrp.price.formatted }}
+                 {% endif %}
+              </del>
+              <div class="vat">
+                <p>inkl. MwSt. {{ item.data.prices.default.vat.value }}<br><a href="/dekonex-europe/versandkosten/">zzgl. Versandkosten<br>(<strong>versandkostenfrei inh. DE ab 20€</strong>)</p>
               </div>
           </div>
-
           {{ LayoutContainer.show("Ceres::CategoryItem.AfterPrices", item.data) }}
+          <div class="quantity-input-container">
+              <quantity-input :value="1"
+                          @quantity-change="updateQuantity"
+                          @out-of-stock="handleButtonState"
+                          :timeout="0"
+                          :min="minimumQuantity"
+                          :max="maximumQuantity"
+                          :interval="intervalQuantity"
+                          :variation-id="variationId"
+                          template="#vue-quantity-input"></quantity-input>
+          </div>
+          <div class="article-btn">
+            <a href="{{ itemUrl }}" title="zum Artikel"><i class="fa chevron-right"></i> zum Artikel</a>
         </div>
-        <hr>
+          <div class="basket-btn">
+            {{ AddToBasket.printTwigComponent( item.data ) }}
+        </div>
+        </div>
     </div>
 </article>
