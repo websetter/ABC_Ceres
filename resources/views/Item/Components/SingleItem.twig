@@ -48,51 +48,36 @@
               </div>
           </div>
 
+        <!-- Variation -->
+        <div class="variation" v-if="variations.length > 1">
+          <variation-select template="#vue-variation-select" :attributes="attributeNameMap" :variations="variations" :preselect="currentVariation.variation.id" @is-valid-change="isVariationSelected = $event"></variation-select>
+        </div>
+        <!-- /Variation -->
+
+        <!-- Item Bundle -->
+          <item-bundle :bundle-type="currentVariation.variation.bundleType" :bundle-components="currentVariation.bundleComponents"></item-bundle>
+        <!-- /Item Bundle -->
+        <graduated-prices template="#vue-graduated-prices"></graduated-prices>
+
+        <slot name="AfterPrice"></slot>
+        <slot name="BeforeAddToBasket"></slot>
+        {{ AddToBasket.printVueComponent(
+                "currentVariation",
+                false,
+                true,
+                {
+                    ":missing-order-properties":"variationMissingProperties",
+                    ":is-variation-selected": "isVariationSelected && currentVariation.filter.isSalable"
+                }
+            ) }}
+        <slot name="AfterAddToBasket"></slot>
 
 
 
 
-                  <!-- Variation -->
-                  <div class="variation" v-if="variations.length > 1">
-                    <variation-select template="#vue-variation-select" :attributes="attributeNameMap" :variations="variations" :preselect="currentVariation.variation.id" @is-valid-change="isVariationSelected = $event"></variation-select>
-                  </div>
-                  <!-- /Variation -->
+        <slot name="AdditionalContentAfterAddToBasket"></slot>
+        <slot name="AdditionalContentAfterVAT"></slot>
 
-                  <!-- Item Bundle -->
-                    <item-bundle :bundle-type="currentVariation.variation.bundleType" :bundle-components="currentVariation.bundleComponents"></item-bundle>
-                  <!-- /Item Bundle -->
-
-
-
-
-
-
-                    <graduated-prices template="#vue-graduated-prices"></graduated-prices>
-
-
-
-
-
-
-                    <slot name="AfterPrice"></slot>
-                    <slot name="BeforeAddToBasket"></slot>
-                    {{ AddToBasket.printVueComponent(
-                            "currentVariation",
-                            false,
-                            true,
-                            {
-                                ":missing-order-properties":"variationMissingProperties",
-                                ":is-variation-selected": "isVariationSelected && currentVariation.filter.isSalable"
-                            }
-                        ) }}
-                    <slot name="AfterAddToBasket"></slot>
-
-
-
-
-                    <slot name="AdditionalContentAfterAddToBasket"></slot>
-                    <slot name="AdditionalContentAfterVAT"></slot>
-                </div>
 
                 <!-- ITEM DESCRIPTION -->
                 <div class="col-md-12 col-lg-7 m-y-3">
@@ -150,7 +135,7 @@
             </div>
             <!-- ./ITEM DESCRIPTION -->
 
-        </div>
+
         </main>
     </div>
 </script>
