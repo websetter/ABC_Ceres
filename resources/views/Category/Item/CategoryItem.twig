@@ -15,7 +15,7 @@
 
     {% set shippingCat = config("Ceres.global.shippingCostsCategoryId") %}
 
-<div class="container">
+<div class="container-max">
   <div class="row">
     <main class="col-xs-12 categoriegrid page-content categoryItem cat-id-{{ category.id}}">
       <div id="category-description-container" class="category-description">{{ category.details[0].description | raw }}</div>
