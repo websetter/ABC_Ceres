@@ -62,10 +62,7 @@
           <div class="quantity-input-container">
             <quantity-input :value="1" @quantity-change="updateQuantity" @out-of-stock="handleButtonState" :timeout="0" :min="minimumQuantity" :max="maximumQuantity" :interval="intervalQuantity" :variation-id="variationId" template="#vue-quantity-input"></quantity-input>
           </div>
-          <button class="btn btn-block btn-primary" @click="addToBasket()">
-            <i v-waiting-animation="waiting" class="fa fa-shopping-cart" aria-hidden="true"></i>
-            {{ trans("Ceres::Template.singleItemAddToBasket") }}
-          </button>
+          {{ AddToBasket.printTwigComponent( item.data ) }}
         </div>
       </div>
     </div>
