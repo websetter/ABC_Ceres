@@ -1,6 +1,6 @@
 {% import "Ceres::PageDesign.Macros.LayoutContainer" as LayoutContainer %}
 
-{{ component( "Ceres::Customer.Components.UserLoginHandler" ) }}
+{{ component( "ABC::Customer.Components.UserLoginHandler" ) }}
 {{ component( "Ceres::PageDesign.Components.ShippingCountrySelect" ) }}
 {{ component( "Ceres::PageDesign.Components.MobileNavigation" ) }}
 {{ component( "ABC::ItemList.Components.ItemSearch" ) }}
@@ -52,11 +52,9 @@
           </li>
           <li class="list-inline-item control-basket">
             <a v-toggle-basket-preview="v-toggle-basket-preview" href="#" class="toggle-basket-preview">
-              {% if config("Ceres.header.basket_values") != "sum" %}
-                <span class="badge-right" v-basket-item-quantity="$store.state.basket.data.itemQuantity">0</span>
-              {% endif %}
-
-              <i v-waiting-animation="$store.state.basket.isBasketLoading" waiting-class="fa fa-refresh fa-spin" class="fa fa-shopping-cart" aria-hidden="true"></i>
+              Warenkorb
+                <span  v-basket-item-quantity="$store.state.basket.data.itemQuantity">0</span>
+              Artikel |
               {% if config("Ceres.header.basket_values") != "quantity" %}
                 <span class="badge" v-if="!$store.state.basket.showNetPrices" v-basket-item-sum="$store.state.basket.data.itemSum">0,00
                   {{ services.checkout.getCurrencyData()[currencyFormat] }}</span>
@@ -81,7 +79,7 @@
     </div>
   </div>
   <div id="infoWrapper">
-	<div class="container-max">		
+	<div class="container-max">
 		<div id="navbar-information" class="text-right">
 			<span class="isMail"><a href="mailto:verkauf@abc-einkochautomaten.de">E-Mail: verkauf@abc-einkochautomaten.de</a></span>
 			<span> | </span>
