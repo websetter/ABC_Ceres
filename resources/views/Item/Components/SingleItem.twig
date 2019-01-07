@@ -17,7 +17,7 @@
             <p class="rating"> <slot name="BeforePrice"></slot> </p>
             <p class="producer" v-if="currentVariation.filter.hasManufacturer">{{ trans("ABC::Template.hersteller") }}: ${ currentVariation.item.manufacturer.externalName }</p>
             <p class="articlenumber">{{ trans("Ceres::Template.singleItemNumber") }}: >${ currentVariation.variation.number }</p>
-            <p v-if="currentVariation.variation.availability" :class="'availability">>{{ trans("ABC::Template.verfugbarkeit") }}: ${ currentVariation.variation.availability.names.name }</p>
+            <p v-if="currentVariation.variation.availability" class="'availability">{{ trans("ABC::Template.verfugbarkeit") }}: ${ currentVariation.variation.availability.names.name }</p>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-sm-4">
           <div class="prices">
