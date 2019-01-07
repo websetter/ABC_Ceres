@@ -50,11 +50,9 @@
                  {% endif %}
               </del>
               <div class="vat">
-                <p>inkl. MwSt. {{ item.data.prices.default.vat.value }}%<br><a href="/dekonex-europe/versandkosten/">zzgl. Versandkosten<br>(<strong>versandkostenfrei inh. DE ab 20€</strong>)</p>
+                <p>inkl. MwSt. {{ item.data.prices.default.vat.value }}%<br><a href="/dekonex-europe/versandkosten/">zzgl. Versandkosten<br>(<strong>versandkostenfrei inh. DE ab 20€</strong>)</a></p>
               </div>
           </div>
-          {{ LayoutContainer.show("Ceres::CategoryItem.AfterPrices", item.data) }}
-
           <div class="article-btn">
             <a href="{{ itemUrl }}" title="zum Artikel"><i class="fa chevron-right"></i> zum Artikel</a>
         </div>
