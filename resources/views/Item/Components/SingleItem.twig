@@ -20,7 +20,7 @@
             <slot name="ImageCarousel"></slot>
           </div>
         </div>
-        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div class="col-lg-8 col-sm-12 col-xs-12">
           <p class="rating">
             <slot name="BeforePrice"></slot>
           </p>
@@ -28,7 +28,7 @@
           <p class="articlenumber">{{ trans("Ceres::Template.singleItemNumber") }}: ${ currentVariation.variation.number }</p>
           <p v-if="currentVariation.variation.availability" class="availability">{{ trans("ABC::Template.verfugbarkeit") }}: ${ currentVariation.variation.availability.names.name }</p>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-sm-4">
+        <div class="col-lg-4 col-sm-12 col-xs-12 margin-top-sm-4">
           <div class="prices">
             {% if ('item.recommendedPrice' in itemData or 'all' in itemData) %}
               <div class="crossprice" v-if="currentVariation.prices.rrp && currentVariation.prices.rrp.price.value > 0 && currentVariation.prices.rrp.price.value > currentVariation.prices.default.price.value">
@@ -87,7 +87,7 @@
         </div>
         <hr>
         <!-- ITEM DESCRIPTION -->
-        <div class="borderRight col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div class="borderRight col-lg-8 col-sm-12 col-xs-12">
           {% if 'item.description' in itemData or 'all' in itemData %}
             <h2>Artikelbeschreibung</h2>
             <div id="description" v-html="currentVariation.texts.description"></div>
@@ -103,7 +103,7 @@
           <i class="fa fa-chevron-left"></i> {{ trans("ABC::Template.back") }}</a></p>
         </div>
         <!-- ./ITEM DESCRIPTION -->
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-sm-12 col-xs-12">
 					<div id="questions">
 						<span class="redBox"><i class="fa fa-question"></i></span>
 						<h4>Noch Fragen?</h4>
@@ -114,7 +114,7 @@
 						<a class="btn cart" href="/contact" title="Zum Kontaktformular">Kontaktformular</a>
 					</div>
 					<div id="rating" class="margin-top-8">
-					     <span class="redBox"><i class="fa fa-star"></i></span>					     
+					     <span class="redBox"><i class="fa fa-star"></i></span>
 				      <slot name="FeedbackContainer"></slot>
 					</div>
 				</div>
