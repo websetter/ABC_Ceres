@@ -4,14 +4,14 @@
       <div class="col-xs-12">
         <div id="single-carousel" class="owl-carousel owl-theme owl-single-item" ref="single">
           <div v-for="image in singleImages">
-            <a :href="$options.filters.itemImages(currentVariation.documents[0].data.images, 'url').find(img => img.position === image.position).url" data-lightbox="single-big-image-gallery">
+            <a :href="image.url" data-lightbox="single-big-image-gallery">
               <img :alt="getAltText(image)" class="owl-lazy" :data-src="image.url" :title="getItemName()"  itemprop="image">
             </a>
           </div>
         </div>
       </div>
       <div class="col-xs-12">
-        <div id="thumbs" class="owl-thumbs owl-carousel owl-theme owl-single-item" ref="thumbs">
+        <div id="thumbs" class="owl-thumbs owl-carousel owl-theme owl-single-item" ref="thumbs" v-if="carouselImages > 1">
           <img :alt="getAltText(imagePreview)" :title="getItemName()" @click="goTo(index)" class="owl-thumb" v-bind:class="{ 'active': currentItem === index }" :src="imagePreview.url" v-for="(imagePreview, index) in carouselImages">
         </div>
       </div>
