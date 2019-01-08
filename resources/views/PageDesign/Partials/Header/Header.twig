@@ -52,6 +52,7 @@
           </li>
           <li class="list-inline-item control-basket">
             <a v-toggle-basket-preview  href="#" class="toggle-basket-preview">
+              <div class="desktop">
               Warenkorb
                 <span  v-basket-item-quantity="$store.state.basket.data.itemQuantity">0</span>
               Artikel |
@@ -59,6 +60,10 @@
                   <span class="badge" v-if="!$store.state.basket.showNetPrices" v-basket-item-sum="$store.state.basket.data.itemSum">0,00 {{ services.checkout.getCurrencyData()[currencyFormat] }}</span>
                   <span class="badge" v-else v-cloak v-basket-item-sum="$store.state.basket.data.itemSumNet">0,00 {{ services.checkout.getCurrencyData()[currencyFormat] }}</span>
               {% endif %}
+            </div>
+            <div class="mobile">
+              <span class="fa fa-shopping-cart"></span>
+            </div>
             </a>
 
             {% if config("Ceres.basket.preview_type") != "right" %}
