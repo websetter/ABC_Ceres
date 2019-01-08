@@ -12,8 +12,8 @@
       <div class="single container-max page-content">
         <div class="col-xs-12">
         <p class="center">
-        <a class="backToCat" href="#">
-        <i class="fa fa-chevron-left"></i> {{ trans("ABC::Template.back") }} | {% for category in categoryBreadcrumbs[:categoryBreadcrumbs | length - 1] if not break %}{% if category.level == 1 %}{{ category.details[0].nameUrl }}{% else %}{% set break = true %}{% endif %}{% endfor %}</a></p>
+        <a class="backToCat" href="/{% for category in categoryBreadcrumbs[:categoryBreadcrumbs | length - 1] if not break %}{% if category.level == 1 %}{{ category.details[0].nameUrl }}{% else %}{% set break = true %}{% endif %}{% endfor %}">
+        <i class="fa fa-chevron-left"></i> {{ trans("ABC::Template.back") }}</a></p>
           <hr>
           <h1>${ currentVariation | itemName }</h1>
           <slot name="ImageCarousel"></slot>
@@ -95,6 +95,10 @@
             <h2>Technische Daten</h2>
             <div id="technicaldata" v-html="currentVariation.texts.technicalData"></div>
           {% endif %}
+          <hr>
+          <p class="center margin-top-2">
+          <a class="backToCat" href="/{% for category in categoryBreadcrumbs[:categoryBreadcrumbs | length - 1] if not break %}{% if category.level == 1 %}{{ category.details[0].nameUrl }}{% else %}{% set break = true %}{% endif %}{% endfor %}">
+          <i class="fa fa-chevron-left"></i> {{ trans("ABC::Template.back") }}</a></p>
         </div>
         <!-- ./ITEM DESCRIPTION -->
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
