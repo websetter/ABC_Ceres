@@ -4,8 +4,7 @@
 {% set enabledRoutes = config("IO.routing.enabled_routes") | split(', ') %}
 {% set shippingCat = config("Ceres.global.shippingCostsCategoryId") %}
 
-{% set category =  service.category.get(item.documents[0].data.defaultCategories.id, lang) %}
-{% set categoryName = category.details[0].name %}
+
 
 <script type="x/template" id="vue-single-item">
   <div>
@@ -13,8 +12,8 @@
       <div class="single container-max page-content">
         <div class="col-xs-12">
         <p class="center">
-        <a class="backToCat" :href="categoryName">
-        <i class="fa fa-chevron-left"></i> {{ trans("ABC::Template.back") }}</a></p>
+        <a class="backToCat" href="#">
+        <i class="fa fa-chevron-left"></i> {{ trans("ABC::Template.back") }} | {{category.id}} | {{ category.details[0].nameUrl }}</a></p>
           <hr>
           <h1>${ currentVariation | itemName }</h1>
           <slot name="ImageCarousel"></slot>
