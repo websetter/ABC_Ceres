@@ -9,6 +9,7 @@ use Plenty\Plugin\ServiceProvider;
 use Plenty\Plugin\Events\Dispatcher;
 use Plenty\Plugin\Templates\Twig;
 use IO\Helper\TemplateContainer;
+use IO\Helper\ComponentContainer;
 use IO\Extensions\Functions\Partial;
 use Plenty\Plugin\ConfigRepository;
 use ABC\Contexts\MyContext;
@@ -72,10 +73,12 @@ class ABCServiceProvider extends ServiceProvider
             return false;
         }, self::PRIORITY);
 
-        $dispatcher->listen('IO.tpl.contact', function (TemplateContainer $container) {
-        $container->setTemplate('ABC::Customer.Contact');
-        return false;
-      });
+        $dispatcher->listen('IO.Component.Import', function(ComponentContainer $container){
+      if( $container->getOriginComponentTemplate() == 'Ceres::Customer.Components.Contact.ContactForm')
+      {
+         $container->setNewComponentTemplate('ABC::Customer.Contact');
+      }
+    }, 0);
 
         // Override homepage
         if (in_array("homepage", $enabledOverrides) || in_array("all", $enabledOverrides))
