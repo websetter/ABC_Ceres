@@ -72,12 +72,10 @@ class ABCServiceProvider extends ServiceProvider
             return false;
         }, self::PRIORITY);
 
-        $dispatcher->listen('IO.Component.Import', function(ComponentContainer $container){
-           if( $container->getOriginComponentTemplate() == 'Ceres::Customer.Components.Contact.ContactForm')
-           {
-              $container->setNewComponentTemplate('ABC::Customer.Contact');
-           }
-         }, 0);
+        $dispatcher->listen('IO.tpl.contact', function (TemplateContainer $container) {
+        $container->setTemplate('ABC::Customer.Contact');
+        return false;
+      });
 
         // Override homepage
         if (in_array("homepage", $enabledOverrides) || in_array("all", $enabledOverrides))
