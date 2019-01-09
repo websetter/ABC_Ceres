@@ -74,7 +74,7 @@
 
             <input class="mailToMe" id="cc" type="checkbox" v-model="cc" value="cc" name="mailToMe">
             <label for="cc">{{ trans("Ceres::Template.contactSendMeACopy") }}</label>
-
+            <br>
             <accept-privacy-policy-check class="m-b-1" v-if="enableConfirmingPrivacyPolicy" v-model="privacyPolicyAccepted" @input="privacyPolicyValueChanged($event)" :show-error="privacyPolicyShowError"></accept-privacy-policy-check>
 
             <button type="submit" class="btn btn-primary btn-block" :disabled="waiting" @click="validate({{ gCapture | length > 0 }})">
