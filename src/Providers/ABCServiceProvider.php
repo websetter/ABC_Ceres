@@ -72,7 +72,7 @@ class ABCServiceProvider extends ServiceProvider
             return false;
         }, self::PRIORITY);
 
-        $eventDispatcher->listen('IO.Component.Import', function(ComponentContainer $container){
+        $dispatcher->listen('IO.Component.Import', function(ComponentContainer $container){
            if( $container->getOriginComponentTemplate() == 'Ceres::Customer.Components.Contact.ContactForm')
            {
               $container->setNewComponentTemplate('ABC::Customer.Contact');
