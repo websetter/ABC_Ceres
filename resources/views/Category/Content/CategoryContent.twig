@@ -15,7 +15,7 @@
     {% set content = services.category.get(category.id, lang) %}
   {% endif %}
 
-    <div class="container contentText">
+    <div class="container-max contentText">
         {{ content.details.first.description | raw }}
         <div class="row">
           <div class="col-xs-12">
