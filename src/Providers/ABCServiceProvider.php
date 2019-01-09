@@ -30,7 +30,7 @@ class ABCServiceProvider extends ServiceProvider
     public function boot(Twig $twig, Dispatcher $dispatcher, ConfigRepository $config)
     {
 
-        $enabledOverrides = explode(", ", $config->get("ABC.templates.override"));      
+        $enabledOverrides = explode(", ", $config->get("ABC.templates.override"));
 
         $dispatcher->listen('IO.ResultFields.*', function(ResultFieldTemplate $templateContainer) {
             $templateContainer->setTemplates([ ResultFieldTemplate::TEMPLATE_LIST_ITEM => 'ABC::ResultFields.ListItem' ]);
@@ -71,6 +71,13 @@ class ABCServiceProvider extends ServiceProvider
 
             return false;
         }, self::PRIORITY);
+
+        $eventDispatcher->listen('IO.Component.Import', function(ComponentContainer $container){
+           if( $container->getOriginComponentTemplate() == 'Ceres::Customer.Components.Contact.ContactForm')
+           {
+              $container->setNewComponentTemplate('ABC::Customer.Contact');
+           }
+         }, 0);
 
         // Override homepage
         if (in_array("homepage", $enabledOverrides) || in_array("all", $enabledOverrides))
