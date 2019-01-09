@@ -17,8 +17,10 @@
 
     <div class="container contentText">
       <div class="row">
+        <div class="col-xs-12">
         {{ content.details.first.description | raw }}
-      {% include category_template( category.id, lang, webstoreConfig.webstoreId ) ignore missing %}
+        {% include category_template( category.id, lang, webstoreConfig.webstoreId ) ignore missing %}
+      </div>
     </div>
   </div>
 {% endblock %}
