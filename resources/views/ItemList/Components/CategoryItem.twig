@@ -18,6 +18,10 @@
 <script type="x/template" id="vue-category-item">
     <article class="product-inner themefromItemList">
         <div class="thumb-inner">
+        <a :href="itemData | itemURL" class="thumb-title">
+            ${ itemData | itemName }
+            <span>${ itemData.texts.name2 }</span>
+        </a>
             <div class="thumb-image">
                 <div class="square-container">
                     <div class="square-inner main-image">
@@ -34,38 +38,29 @@
                     </div>
                 </div>
             </div>
-            <!-- STORE SPECIALS -->
-            <item-store-special v-if="storeSpecial || itemData.variation.bundleType == 'bundle'"
-                                :store-special="storeSpecial"
-                                :recommended-retail-price="itemData.prices.rrp"
-                                :variation-retail-price="itemData.prices.default"
-                                :decimal-count="decimalCount"
-                                :bundle-type="itemData.variation.bundleType"></item-store-special>
-            <!-- ./STORE SPECIALS -->
 
-            <hr>
             <div class="thumb-content">
-              <a :href="itemData | itemURL" class="thumb-title">
-                  ${ itemData | itemName }
-              </a>
               <div class="prices">
-                      <del class="crossprice">
-                        <span v-if="itemData.prices.rrp && itemData.prices.rrp.price.value > 0 && itemData.prices.rrp.price.value > itemData.prices.default.unitPrice.value">
-                          {{ trans("ABC::Template.UVP") }} ${ itemData.prices.rrp.price.formatted }</span>
-                      </del>
-                  <div class="price">
-                      ${ itemData.prices.default.unitPrice.formatted }
+                <div class="price">
+                    ${ itemData.prices.default.unitPrice.formatted }
+                </div>
+                  <del class="crossprice">
+                    <span v-if="itemData.prices.rrp && itemData.prices.rrp.price.value > 0 && itemData.prices.rrp.price.value > itemData.prices.default.unitPrice.value">
+                      {{ trans("ABC::Template.UVP") }} ${ itemData.prices.rrp.price.formatted }</span>
+                  </del>
+                  <div class="vat">
+                    <p>{{ trans("ABC::Template.mwst") }} ${ itemDate.prices.default.vat.value}%<br><a href="/dekonex-europe/versandkosten/">{{ trans("ABC::Template.vkost") }}<br>(<strong>{{ trans("ABC::Template.inDE") }}</strong>)</a></p>
                   </div>
-                   <div class="artSold" v-if="itemData.variationProperties[0]">
-                      <p v-if="itemData.variationProperties[0].property.id == 1">${ itemData.variationProperties[0].values.value } verkauft*</p>
-                  </div>
+              </div>
+              <div class="article-btn">
+                <a class="btn" href="itemData | itemURL" title="zum Artikel"><span class="fa fa-chevron-right"></span> zum Artikel</a>
+            </div>
+            <div class="basket-btn">
+            {{ AddToBasket.printVueComponent( "itemData" ) }}
+            </div>
               </div>
 
-              </div>
-                <hr>
-                <div class="hidden btn-popup">
-                {{ AddToBasket.printVueComponent( "itemData" ) }}
-                </div>
+
 
         </div>
     </article>
