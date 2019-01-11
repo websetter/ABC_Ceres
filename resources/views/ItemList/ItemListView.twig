@@ -9,20 +9,18 @@
     {{ component( "ABC::ItemList.Components.Filter.ItemFilterList") }}
     {{ component( "Ceres::ItemList.Components.Filter.ItemFilterTagList") }}
 
-<div class="page-content container {% if isSearch %} searchPage{% endif %}">
-
-      <div clas="hidden">
+<div class="page-content container-max {% if isSearch %} searchPage{% endif %}">
+      <div class="hidden">
       <item-list-sorting template="#vue-item-list-sorting" :sorting-list="{{ searchOptions.sorting | json_encode }}" :default-sorting="{{ searchOptions.defaultSorting | json_encode }}"></item-list-sorting>
       <items-per-page
               template="#vue-items-per-page"
               :pagination-values="{{ searchOptions.itemsPerPage | json_encode }}"></items-per-page>
       </div>
-
     <main class="categoriegrid itemListView">
-
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="h2" id="searchPageTitle">{{ trans("Ceres::Template.itemSearchResults") }} {{ searchString }}</h1>
+                <h1 id="searchPageTitle">{{ trans("Ceres::Template.itemSearchResults") }} {{ searchString }}</h1>
+                <hr>
                 <div id="vue-rendered-item-list" class="item-list-frame">
                     <item-list
                         :item-data="{{ itemList | json_encode }}"
