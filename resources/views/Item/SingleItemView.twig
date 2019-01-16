@@ -24,6 +24,7 @@
   <div slot="ItemListContainer">{{ LayoutContainer.show("Ceres::SingleItem.ItemListContainer", item) }}</div>
   <div slot="FeedbackContainer">{{ LayoutContainer.show("Ceres::SingleItem.FeedbackContainer", item) }}</div>
   <div slot="ReviewContainer">{{ LayoutContainer.show("ABC::SingleItem.TrustedReview", item) }}</div>
+  <div slot="ReviewStarContainer">{{ LayoutContainer.show("ABC::SingleItem.TrustedReviewStars", item) }}</div>
   <div slot="ImageCarousel">
     {% set ImageCarouselOverride = LayoutContainer.show("ABC::SingleItem.ImageCarousel") %}
     {% if ImageCarouselOverride | trim is empty %}

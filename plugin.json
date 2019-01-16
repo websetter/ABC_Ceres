@@ -40,11 +40,16 @@
         }
       ],
       "containers"        :
-      [          
+      [
           {
               "key"           : "SingleItem.TrustedReview",
               "name"          : "SingleItem: Container for Trusted Reviews",
               "description"   : "Container for Trusted Reviews."
+          },
+          {
+              "key"           : "SingleItem.TrustedReviewStars",
+              "name"          : "SingleItem: Container for Trusted Reviews Stars",
+              "description"   : "Container for Trusted Reviews Stars."
           }
       ]
 }
