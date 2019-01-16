@@ -72,7 +72,8 @@
 
             {% else %}
 
-                <li>
+            <li class="{% for breadcrumb in breadcrumbs %}{% if category.id == breadcrumb.id %} active{% endif %}{% endfor %}" v-update-sidenav-selection="$store.getters.breadcrumbs" data-category-id="{{ category.id }}">
+
                     <a href="{{ currentScopeUrl }}{{ urls.trailingSlashSuffix }}" v-render-category="{ id: {{ category.id }}, type: '{{ category.type }}', alwaysOpen: true, scrollToTop: 600 }">{{ category.details[0].name }}</a>
                 </li>
 
