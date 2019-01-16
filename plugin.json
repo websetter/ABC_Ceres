@@ -38,5 +38,13 @@
             "name"          :"Third item list",
             "description"   :"Display a configurable list of items in your online store"
         }
-    ]
+      ],
+      "containers"        :
+      [          
+          {
+              "key"           : "SingleItem.TrustedReview",
+              "name"          : "SingleItem: Container for Trusted Reviews",
+              "description"   : "Container for Trusted Reviews."
+          }
+      ]
 }
