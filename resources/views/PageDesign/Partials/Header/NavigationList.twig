@@ -1,8 +1,8 @@
-{% import "Ceres::Category.Macros.CategoryTree" as Tree %}
+{% import "ABC::Category.Macros.CategoryTree" as Tree %}
 
 {% set lang = services.sessionStorage.getLang() %}
 
 <ul class="mainmenu">
-  <li class="cat-welcome"><a href="/" title="Zur Startseite">Home</a></li>
+  <li class="cat-welcome{% if services.template.isHome() %} active{% endif %}"><a href="/" title="Zur Startseite">Home</a></li>
     {{ Tree.get_nav_bar(categories, "") }}
 </ul>
