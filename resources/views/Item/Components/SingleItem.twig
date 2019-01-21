@@ -16,7 +16,7 @@
         <a class="backToCat" href="/{% for category in categoryBreadcrumbs[:categoryBreadcrumbs | length - 1] if not break %}{% if category.level == 1 %}{{ category.details[0].nameUrl }}{% else %}{% set break = true %}{% endif %}{% endfor %}">
         <i class="fa fa-chevron-left"></i> {{ trans("ABC::Template.back") }}</a></p>
           <hr>
-          <h1 class="itemTitle">${ currentVariation | itemName } {{ currentVariation.texts.name2 }}</h1>
+          <h1 class="itemTitle">${ currentVariation | itemName } ${ currentVariation.texts.name2 }</h1>
           <div class="imageBox margin-top-15 margin-bottom-3">
             <slot name="ImageCarousel"></slot>
           </div>
