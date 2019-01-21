@@ -34,3 +34,79 @@
     {% endif %}
   </div>
 </single-item>
+<noscript>
+  <div class="single container-max page-content">
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="center">
+        <a class="backToCat" href="/{% for category in categoryBreadcrumbs[:categoryBreadcrumbs | length - 1] if not break %}{% if category.level == 1 %}{{ category.details[0].nameUrl }}{% else %}{% set break = true %}{% endif %}{% endfor %}">
+        <i class="fa fa-chevron-left"></i> {{ trans("ABC::Template.back") }}</a></p>
+        <hr>
+        <h1>{{ item.documents[0].data | itemName }} {{ item.documents[0].data.texts.name2 }}</h1>
+        <img src="{{ (item.documents[0].data.images | itemImages | orderByKey('position') | first).url }}">
+      </div>
+      <div class="col-lg-8 col-sm-12 col-xs-12">
+        <p class="producer">{{ trans("ABC::Template.hersteller") }}: {{ item.documents[0].data.manufacturer.externalName }}</p>
+        <p class="articlenumber">{{ trans("Ceres::Template.singleItemNumber") }}: {{ item.documents[0].data.variation.model }}</p>
+        <p class="availability">{{ trans("ABC::Template.verfugbarkeit") }}: {{ item.documents[0].data.variation.availability }}</p>
+      </div>
+      <div class="col-lg-4 col-sm-12 col-xs-12 margin-top-sm-4">
+        <div class="prices">
+        <div class="crossprice">
+          <del class="text-muted small">
+            {{ item.documents[0].data.prices.rrp.unitPrice.formatted }}
+          </del>
+        </div>
+          <span class="price">
+            {{ item.documents[0].data.prices.default.unitPrice.formatted }}
+          </span>
+          <div class="base-price text-muted">
+            <div>
+              {{ trans("Ceres::Template.singleItemUnitPrice") }}:
+              <span class="base-price-value">
+                {{ item.documents[0].data.prices.default.basePrice }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="vat">
+          <p>
+            {{ trans("ABC::Template.mwst") }} {{ item.documents[0].data.prices.default.vat.value }}%<br>
+            <a href="/dekonex-europe/versandkosten/">{{ trans("ABC::Template.vkost") }}<br>
+           <strong>({{ trans("ABC::Template.inDE2") }})</strong></a>
+          </p>
+        </div>
+      </div>
+
+      <div class="col-xs-12 ">
+        <button class="btn btn-block btn-primary" @click="addToBasket()">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            {{ trans("Ceres::Template.singleItemAddToBasket") }}
+        </button>
+        <hr>
+      </div>
+        <div class="borderRight col-lg-8 col-sm-12 col-xs-12">
+        <h2>Artikelbeschreibung</h2>
+        {{ item.documents[0].data.texts.description }}
+        <hr>
+        <h2>Technische Daten</h2>
+        {{ item.documents[0].data.texts.technicalData }}
+      </div>
+      <div class="col-lg-4 col-sm-12 col-xs-12">
+        <div id="questions">
+          <span class="redBox"><i class="fa fa-question"></i></span>
+          <h4>Noch Fragen?</h4>
+          <p>Wir helfen Ihnen gerne weiter!</p>
+          <p class="margin-bottom-0"><a href="tel:07021507514" title="Rufen Sie uns an!"><i class="fa fa-phone"></i> +49 7021 / 50 75 14</a></p>
+          <p><a href="mailto:verkauf@abc-einkochautomaten.de" title="Schreiben Sie uns!"><i class="fa fa-envelope"></i> verkauf@abc-einkochautomaten.de</a></p>
+          <p class="margin-top-3">Oder schreiben SIe uns über das</p>
+          <a class="btn cart" href="/contact" target="_blank" title="Zum Kontaktformular">Kontaktformular</a>
+        </div>
+        <div id="rating" class="margin-top-8">
+             <span class="redBox"><i class="fa fa-star"></i></span>
+            <slot name="FeedbackContainer"></slot>
+        </div>
+      </div>
+  </div>
+</div>
+  </noscript>
