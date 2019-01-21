@@ -9,9 +9,7 @@
             </button>
             <div class="autocomplete-suggestions" v-if="isSearchFocused && autocompleteResult.length">
                 <a :href="item.url" class="autocomplete-suggestion" v-for="(item, index) in autocompleteResult" :key="index" @click="selectAutocompleteItem(item)" :class="{ 'autocomplete-selected': selectedAutocompleteIndex === index }">
-                    <div class="autocomplete-image-container">
-                        <img class="autocomplete-image" :src="item.img">
-                    </div>
+                    <img class="autocomplete-image" :src="item.img">                    
                     <div class="autocomplete-item-name" v-html="item.displayName"></div>
                 </a>
             </div>
