@@ -43,10 +43,12 @@
         <i class="fa fa-chevron-left"></i> {{ trans("ABC::Template.back") }}</a></p>
         <hr>
         <h1>{{ item.documents[0].data | itemName }} {{ item.documents[0].data.texts.name2 }}</h1>
+        <div id="single-carousel">
         <img src="{{ (item.documents[0].data.images | itemImages | orderByKey('position') | first).url }}">
       </div>
+      </div>
       <div class="col-lg-8 col-sm-12 col-xs-12">
-        <p class="producer">{{ trans("ABC::Template.hersteller") }}: {{ item.documents[0].data.manufacturer.externalName }}</p>
+        <p class="producer">{{ trans("ABC::Template.hersteller") }}: {{ item.documents[0].data.item.manufacturer.externalName }}</p>
         <p class="articlenumber">{{ trans("Ceres::Template.singleItemNumber") }}: {{ item.documents[0].data.variation.model }}</p>
         <p class="availability">{{ trans("ABC::Template.verfugbarkeit") }}: {{ item.documents[0].data.variation.availability }}</p>
       </div>
