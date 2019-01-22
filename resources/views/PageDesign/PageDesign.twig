@@ -245,7 +245,7 @@
 
 
 {{ Loader.include_components() }}
-
+<script  src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 {{ LayoutContainer.show("Ceres::Script.Loader") }}
 
 {{ Translations.add( "Ceres", "Template" ) }}
@@ -261,6 +261,7 @@
 {% endfor %}
 
 {{ LayoutContainer.show("Ceres::Script.AfterScriptsLoaded") }}
+<script defer src="https://cdn02.plentymarkets.com/ufyco6cvmmqs/frontend/ceres/js/template.js"></script>
 
 {{ get_filtered_tags() }}
 
