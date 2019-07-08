@@ -15,6 +15,14 @@
 {% set currencyFormatSelect = config("Ceres.currency.format_selection") %}
 {% set companyLogo = config("Ceres.header.company_logo") %}
 
+{% set banner = services.category.get(455, lang) %}
+
+{% if banner.details.first.description | trim is not empty %}
+<marquee>
+      {{ banner.details.first.description | raw }}
+</marquee>
+{% endif %}
+
 <header id="page-header">
   <div class="container-max">
     <div class="row">
