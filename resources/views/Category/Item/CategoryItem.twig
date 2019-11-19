@@ -14,10 +14,11 @@
     {{ component( "ABC::ItemList.Components.CategoryItem" ) }}
 
     {% set shippingCat = config("Ceres.global.shippingCostsCategoryId") %}
+    {% set sliderCat = services.category.get(category.id, lang) %}
 
 <div id="nohome">
   <div id="slider">
-    {% include category_template( category.id, lang, 0 ) ignore missing %}
+    {{ sliderCat.details.first.description2 | raw }}
   </div>
 </div>
 <div class="container-max">
