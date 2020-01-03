@@ -1,6 +1,5 @@
 <script type="x/template" id="vue-variation-select">
-    <div>
-    <hr>
+    <div>    
         <div v-for="(attribute, attributeId) in attributes">
             <div class="input-unit">
                 <select class="custom-select" v-model="selectedAttributes[attributeId]" @change="onSelectionChange(selectedAttributes[attributeId])">

@@ -58,8 +58,9 @@
 
 <div class="col-xs-12">
   <!-- Variation -->
-  <div class="variation" v-if="attributes.length || Object.keys(units).length">
- <variation-select></variation-select>  </div>
+  <div class="variation" v-if="attributes.length > 1 || Object.keys(units).length">
+    <variation-select></variation-select>
+ </div>
   <!-- /Variation -->
   <!-- Item Bundle -->
   <item-bundle :bundle-type="currentVariation.variation.bundleType" :bundle-components="currentVariation.bundleComponents"></item-bundle>
@@ -76,4 +77,5 @@
             }
         ) }}
   <slot name="after-add-to-basket"></slot>
+  <hr>
 </div>
