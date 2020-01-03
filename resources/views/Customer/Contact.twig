@@ -83,17 +83,16 @@
                         {% endif %}
                     </div>
 
-
-                        <div class="form-check">
-                            <input class="form-check-input"
-                                   data-mail="cc"
-                                   value="{{ formId }}_mail"
-                                   type="checkbox"
-                                   id="{{ formId }}_copy_to_me">
-                            <label class="form-check-label" for="{{ formId }}_copy_to_me">
-                                {{ trans("Ceres::Template.contactSendMeACopy") }}
-                            </label>
-                          </div>
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               data-mail="cc"
+                               value="{{ formId }}_mail"
+                               type="checkbox"
+                               id="{{ formId }}_copy_to_me">
+                        <label class="form-check-label-max" for="{{ formId }}_copy_to_me">
+                            {{ trans("Ceres::Template.contactSendMeACopy") }}
+                        </label>
+                      </div>
 
                     <hr>
                     {% if ceresConfig.contact.enableConfirmingPrivacyPolicy %}
