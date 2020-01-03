@@ -65,7 +65,7 @@
 
                     <!-- MODAL FOOTER -->
                     <div class="modal-footer">
-                        <div class="row">
+                        <div class="row flex-end">
                             <a v-waiting-animation-infinite href="{{ urls.basket }}" rel="nofollow" class="btn btn-primary btn-medium btn-m-r btn-outline-primary">
                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 {{ trans("Ceres::Template.singleItemBasket") }}
@@ -74,7 +74,7 @@
                                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
                                 {{ trans("Ceres::Template.singleItemCheckout") }}
                             </a>
-                            {{ LayoutContainer.show("Ceres::Basket.ExtendOverlayButtons") }}                            
+                            {{ LayoutContainer.show("Ceres::Basket.ExtendOverlayButtons") }}
                         </div>
                     </div>
                     <!-- ./MODAL FOOTER -->
