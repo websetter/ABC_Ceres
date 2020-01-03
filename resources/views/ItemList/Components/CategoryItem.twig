@@ -18,9 +18,9 @@
 <script type="x/template" id="vue-category-item">
     <article class="product-inner themefromItemList">
         <div class="thumb-inner">
-        <a :href="itemData | itemURL" class="thumb-title">
-            ${ itemData | itemName }
-            <span>${ itemData.texts.name2 }</span>
+        <a :href="item | itemURL" class="thumb-title">
+            ${ item | itemName }
+            <span>${ item.texts.name2 }</span>
         </a>
             <div class="thumb-image">
                 <div class="square-container">
