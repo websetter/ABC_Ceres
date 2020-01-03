@@ -159,12 +159,6 @@
 
                                 <contact-wish-input class="p-b-1"></contact-wish-input>
 
-                                <shipping-privacy-hint-check></shipping-privacy-hint-check>
-
-                                <div class="form-check">
-                                    <accept-gtc-check></accept-gtc-check>
-                                </div>
-                                {{ LayoutContainer.show("Ceres::Checkout.OptIns") }}
                             </div>
 
                     </div>
@@ -185,6 +179,13 @@
                                   <basket-totals></basket-totals>
                                   {{ LayoutContainer.show("Ceres::Checkout.AfterBasketTotals") }}
                               </div>
+                              <hr>
+                              <shipping-privacy-hint-check></shipping-privacy-hint-check>
+
+                              <accept-gtc-check></accept-gtc-check>
+
+                              {{ LayoutContainer.show("Ceres::Checkout.OptIns") }}
+                              <hr>
                               {{ LayoutContainer.show("Ceres::Checkout.BeforePlaceOrder") }}
                               <place-order target-continue="{{ homepageURL }}{% if homepageURL | last != '/'%}/{% endif %}place-order{% if urls.appendTrailingSlash %}/{% endif %}{% if services.checkout.getReadOnlyCheckout() == 1 %}?readonlyCheckout=1{% endif %}" @payment-response="checkoutComp.showModal($event)"></place-order>
                               {{ LayoutContainer.show("Ceres::Checkout.AfterPlaceOrder") }}
