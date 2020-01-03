@@ -181,29 +181,22 @@
                                   <hr>
                                   <coupon></coupon>
                                   <hr>
+                                  {{ LayoutContainer.show("Ceres::Checkout.BeforeBasketTotals") }}
+                                  <basket-totals></basket-totals>
+                                  {{ LayoutContainer.show("Ceres::Checkout.AfterBasketTotals") }}
                               </div>
+                              {{ LayoutContainer.show("Ceres::Checkout.BeforePlaceOrder") }}
+                              <place-order target-continue="{{ homepageURL }}{% if homepageURL | last != '/'%}/{% endif %}place-order{% if urls.appendTrailingSlash %}/{% endif %}{% if services.checkout.getReadOnlyCheckout() == 1 %}?readonlyCheckout=1{% endif %}" @payment-response="checkoutComp.showModal($event)"></place-order>
+                              {{ LayoutContainer.show("Ceres::Checkout.AfterPlaceOrder") }}
+
+                              {% if checkout.readOnly %}
+                                  <a class="btn btn-block btn-outline-primary mt-3" href="{{ urls.checkout }}?readonlyCheckout=0">
+                                      <i class="fa fa-times" aria-hidden="true"></i> {{ trans("Ceres::Template.checkoutCancelCheckout") }}
+                                  </a>
+                              {% endif %}
                           </aside>
                     </div>
 
-                    <div class="col-md-6 checkout-rightside float-right">
-                        <aside class="sidebar">
-                            <div class="cmp cmp-checkout-sidebar">
-                                {{ LayoutContainer.show("Ceres::Checkout.BeforeBasketTotals") }}
-                                <basket-totals></basket-totals>
-                                {{ LayoutContainer.show("Ceres::Checkout.AfterBasketTotals") }}
-                            </div>
-                        </aside>
-
-                        {{ LayoutContainer.show("Ceres::Checkout.BeforePlaceOrder") }}
-                            <place-order target-continue="{{ homepageURL }}{% if homepageURL | last != '/'%}/{% endif %}place-order{% if urls.appendTrailingSlash %}/{% endif %}{% if services.checkout.getReadOnlyCheckout() == 1 %}?readonlyCheckout=1{% endif %}" @payment-response="checkoutComp.showModal($event)"></place-order>
-                            {{ LayoutContainer.show("Ceres::Checkout.AfterPlaceOrder") }}
-
-                            {% if checkout.readOnly %}
-                                <a class="btn btn-block btn-outline-primary mt-3" href="{{ urls.checkout }}?readonlyCheckout=0">
-                                    <i class="fa fa-times" aria-hidden="true"></i> {{ trans("Ceres::Template.checkoutCancelCheckout") }}
-                                </a>
-                            {% endif %}
-                    </div>
                 </div>
             </checkout>
         {% else %}
