@@ -13,29 +13,7 @@
 {% if overrideHomepageContainer | trim is empty %}
 
   {% set lang = services.sessionStorage.getLang() %}
-  {% set category1 = services.category.get(config("Ceres.homepage.homepageCategory1"), lang) %}
-  {% set category2 = services.category.get(config("Ceres.homepage.homepageCategory2"), lang) %}
-  {% set category3 = services.category.get(config("Ceres.homepage.homepageCategory3"), lang) %}
-  {% set category4 = services.category.get(config("Ceres.homepage.homepageCategory4"), lang) %}
-  {% set category5 = services.category.get(config("Ceres.homepage.homepageCategory5"), lang) %}
-  {% set category6 = services.category.get(config("Ceres.homepage.homepageCategory6"), lang) %}
 
-  {% set paginatedCategoryList1 = services.itemLoader.loadForTemplate('Ceres::ItemList.ItemListView', itemLoaderPresets.categoryList, {
-    'categoryId': category3.id,
-    'page': 1,
-    'items': 4,
-    'sorting': itemSort
-  }) %}
-
-  {% set paginatedCategoryList2 = services.itemLoader.loadForTemplate('Ceres::ItemList.ItemListView', itemLoaderPresets.categoryList, {
-    'categoryId': category6.id,
-    'page': 1,
-    'items': 4,
-    'sorting': itemSort
-  }) %}
-
-  {% set categoryList1 = paginatedCategoryList1.documents %}
-  {% set categoryList2 = paginatedCategoryList2.documents %}
 
   {{ component( "Ceres::ItemList.Components.ItemList") }}
   {{ component( "Ceres::ItemList.Components.CategoryImageCarousel") }}

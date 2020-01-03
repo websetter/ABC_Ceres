@@ -2,9 +2,6 @@
 
 namespace ABC\Providers;
 
-use Ceres\Caching\NavigationCacheSettings;
-use Ceres\Caching\SideNavigationCacheSettings;
-use IO\Services\ContentCaching\Services\Container;
 use Plenty\Plugin\ServiceProvider;
 use Plenty\Plugin\Events\Dispatcher;
 use Plenty\Plugin\Templates\Twig;
@@ -42,8 +39,6 @@ class ABCServiceProvider extends ServiceProvider
         // Override partials
         $dispatcher->listen('IO.init.templates', function (Partial $partial) use ($enabledOverrides)
         {
-            pluginApp(Container::class)->register('ABC::PageDesign.Partials.Header.NavigationList.twig', NavigationCacheSettings::class);
-            pluginApp(Container::class)->register('ABC::PageDesign.Partials.Header.SideNavigation.twig', SideNavigationCacheSettings::class);
 
             $partial->set('head', 'Ceres::PageDesign.Partials.Head');
             $partial->set('header', 'Ceres::PageDesign.Partials.Header.Header');
@@ -103,7 +98,7 @@ class ABCServiceProvider extends ServiceProvider
         }
 
         // Override template for item categories
-        if (in_array("category_item", $enabledOverrides) || in_array("all", $enabledOverrides))
+        if (in_array("category_view", $enabledOverrides) || in_array("all", $enabledOverrides))
         {
 
             $dispatcher->listen('IO.tpl.category.item', function (TemplateContainer $container)
@@ -179,16 +174,16 @@ class ABCServiceProvider extends ServiceProvider
             }, self::PRIORITY);
         }
 
-        // Override category view
-        if (in_array("category_view", $enabledOverrides) || in_array("all", $enabledOverrides))
-        {
+        // Override search view
+      if (in_array("search", $enabledOverrides) || in_array("all", $enabledOverrides))
+      {
 
-            $dispatcher->listen('IO.tpl.search', function (TemplateContainer $container)
-            {
-                $container->setTemplate('ABC::ItemList.ItemListView');
-                return false;
-            }, self::PRIORITY);
-        }
+          $dispatcher->listen('IO.tpl.search', function (TemplateContainer $container)
+          {
+              $container->setTemplate('ABC::Category.Item.CategoryItem');
+              return false;
+          }, self::PRIORITY);
+      }
 
         // Override my account
         if (in_array("my_account", $enabledOverrides) || in_array("all", $enabledOverrides))
@@ -197,6 +192,50 @@ class ABCServiceProvider extends ServiceProvider
             $dispatcher->listen('IO.tpl.my-account', function (TemplateContainer $container)
             {
                 $container->setTemplate('ABC::MyAccount.MyAccount');
+                return false;
+            }, self::PRIORITY);
+        }
+
+        // Override wish list
+        if (in_array("wish_list", $enabledOverrides) || in_array("all", $enabledOverrides))
+        {
+
+            $dispatcher->listen('IO.tpl.wish-list', function (TemplateContainer $container)
+            {
+                $container->setTemplate('ABC::WishList.WishListView');
+                return false;
+            }, self::PRIORITY);
+        }
+
+        // Override contact page
+      if (in_array("contact", $enabledOverrides) || in_array("all", $enabledOverrides))
+      {
+
+          $dispatcher->listen('IO.tpl.contact', function (TemplateContainer $container)
+          {
+              $container->setTemplate('ABC::Customer.Contact');
+              return false;
+          }, self::PRIORITY);
+      }
+
+      // Override order return view
+        if (in_array("order_return", $enabledOverrides) || in_array("all", $enabledOverrides))
+        {
+
+            $dispatcher->listen('IO.tpl.order.return', function (TemplateContainer $container)
+            {
+                $container->setTemplate('ABC::OrderReturn.OrderReturnView');
+                return false;
+            }, self::PRIORITY);
+        }
+
+        // Override order return confirmation
+        if (in_array("order_return_confirmation", $enabledOverrides) || in_array("all", $enabledOverrides))
+        {
+
+            $dispatcher->listen('IO.tpl.order.return.confirmation', function (TemplateContainer $container)
+            {
+                $container->setTemplate('ABC::OrderReturn.OrderReturnConfirmation');
                 return false;
             }, self::PRIORITY);
         }
@@ -264,6 +303,63 @@ class ABCServiceProvider extends ServiceProvider
             {
                 $container->setTemplate('ABC::StaticPages.PageNotFound');
                 return false;
+            }, self::PRIORITY);
+        }
+        // Override newsletter opt-out page
+        if (in_array("newsletter_opt_out", $enabledOverrides) || in_array("all", $enabledOverrides))
+        {
+
+            $dispatcher->listen('IO.tpl.newsletter.opt-out', function (TemplateContainer $container)
+            {
+                $container->setTemplate('ABC::Newsletter.NewsletterOptOut');
+                return false;
+            }, self::PRIORITY);
+        }
+
+        $enabledResultFields = [];
+
+        if(!empty($config->get("ABC.result_fields.override")))
+        {
+            $enabledResultFields = explode(", ", $config->get("ABC.result_fields.override"));
+        }
+
+        if(!empty($enabledResultFields))
+        {
+            $dispatcher->listen( 'IO.ResultFields.*', function(ResultFieldTemplate $templateContainer) use ($enabledResultFields)
+            {
+                $templatesToOverride = [];
+
+                // Override list item result fields
+                if (in_array("list_item", $enabledResultFields) || in_array("all", $enabledResultFields))
+                {
+                    $templatesToOverride[ResultFieldTemplate::TEMPLATE_LIST_ITEM] = 'ABC::ResultFields.ListItem';
+                }
+
+                // Override single item view result fields
+                if (in_array("single_item", $enabledResultFields) || in_array("all", $enabledResultFields))
+                {
+                    $templatesToOverride[ResultFieldTemplate::TEMPLATE_SINGLE_ITEM] = 'ABC::ResultFields.SingleItem';
+                }
+
+                // Override basket item result fields
+                if (in_array("basket_item", $enabledResultFields) || in_array("all", $enabledResultFields))
+                {
+                    $templatesToOverride[ResultFieldTemplate::TEMPLATE_BASKET_ITEM] = 'ABC::ResultFields.BasketItem';
+                }
+
+                // Override auto complete list item result fields
+                if (in_array("auto_complete_list_item", $enabledResultFields) || in_array("all", $enabledResultFields))
+                {
+                    $templatesToOverride[ResultFieldTemplate::TEMPLATE_AUTOCOMPLETE_ITEM_LIST] = 'ABC::ResultFields.AutoCompleteListItem';
+                }
+
+                // Override category tree result fields
+                if (in_array("category_tree", $enabledResultFields) || in_array("all", $enabledResultFields))
+                {
+                    $templatesToOverride[ResultFieldTemplate::TEMPLATE_CATEGORY_TREE] = 'ABC::ResultFields.CategoryTree';
+                }
+
+                $templateContainer->setTemplates($templatesToOverride);
             }, self::PRIORITY);
         }
     }

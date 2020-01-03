@@ -16,37 +16,43 @@
     {% set shippingCat = config("Ceres.global.shippingCostsCategoryId") %}
     {% set sliderCat = services.category.get(category.id, lang) %}
 
+{% if category is defined and itemList is not empty %}
 <div id="nohome">
   <div id="slider">
     {{ sliderCat.details.first.description2 | raw }}
   </div>
 </div>
+{% endif %}
+
 <div class="container-max">
   <div class="row">
     <main class="col-xs-12 categoriegrid page-content categoryItem cat-id-{{ category.id}}">
-      <div id="category-description-container" class="category-description">{{ category.details[0].description | raw }}</div>
+      {% if category.details[0].description | trim is not empty %}
+        <div id="category-description-container" class="category-description">{{ category.details[0].description | raw }}</div>
+      {% endif %}
       <div class="hidden">
-      <item-list-sorting template="#vue-item-list-sorting" :sorting-list="{{ searchOptions.sorting | json_encode }}" :default-sorting="{{ searchOptions.defaultSorting | json_encode }}"></item-list-sorting>
-      <items-per-page template="#vue-items-per-page" :pagination-values="{{ searchOptions.itemsPerPage | json_encode }}"></items-per-page>
-    </div>
+        {% include "Ceres::Category.Item.Partials.ItemSorting" with { 'sortingData': searchOptions.sorting, 'selectedSorting': itemSorting } %}
+        {% include "Ceres::Category.Item.Partials.ItemsPerPage" with { 'itemsPerPage': searchOptions.itemsPerPage, 'selectedValue': itemsPerPage } %}
+      </div>
       <hr>
+      {% if category is not defined and itemList is not empty %}
+      <h2>{{ trans("Ceres::Template.itemSearchResults") }} <strong>{{ searchString }}</strong></h2>
+      {% else %}
       <h2>{{ category.details[0].name}}</h2>
-        <div id="twig-rendered-item-list" class="item-list-frame{% if ceresConfig.item.loadingAnimationType == "blur" %} blur-effect{% endif %}">
-            {% if ceresConfig.item.loadingAnimationType != "blur" %}
-                {% include "Ceres::ItemList.Partials.LoadingAnimation" %}
-            {% endif %}
+      {% endif %}
 
-            <ul class="product-list row grid" v-is-loading-watcher="$store.state.itemList.isLoading">
-                {% for item in itemList %}
-                    <li class="col-xs-12 col-sm-6">
-                        {% include "ABC::Category.Item.Partials.CategoryListItem" with { 'item': item, 'shippingCat': shippingCat } %}
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div id="vue-rendered-item-list" style="display:none">
-            <item-list template="#vue-item-list" :total-items-data="{{ itemCountTotal }}" :category-id="{{ category.id }}"></item-list>
-        </div>
+      <ul class="product-list row grid">
+          {% for item in itemList %}
+              <li class="col-xs-12 col-sm-6">
+                <category-item
+                    :item-data="{{ item.data | json_encode }}"
+                    :decimal-count="{{ decimalCount }}">
+                    <template slot="BeforePrices">{{ LayoutContainer.show("Ceres::CategoryItem.BeforePrices", item.data) }}</template>
+                    <template slot="AfterPrices">{{ LayoutContainer.show("Ceres::CategoryItem.AfterPrices", item.data) }}</template>
+                </category-item>
+              </li>
+          {% endfor %}
+      </ul>
     </main>
   </div>
 </div>
@@ -55,12 +61,12 @@
 {% block PartialHead %}
     <script type="application/ld+json">{"@context": "http://schema.org","@type": "WebSite","url": "{{ webstoreConfig.domainSsl }}","potentialAction":{"@type": "SearchAction","target": "{{ domainSsl }}/search?query={search_term}","query-input": "required name=search_term"}}</script>
 
-    {% if currentPage-1 > 0 %}
-        <link rel="prev" href="{{ webstoreConfig.domainSsl }}?{{ query | merge({'page' : currentPage-1 }) | url_encode }}" />
+    {% if currentPage - 1 > 0 %}
+      <link rel="prev" href="{{ canonicalUrl ~ queryString({'page': currentPage - 1}) }}" />
     {% endif %}
 
-    {% if currentPage+1 <= pageMax %}
-        <link rel="next" href="{{ webstoreConfig.domainSsl }}?{{ query | merge({'page' : currentPage+1 }) | url_encode }}" />
+    {% if currentPage + 1 <= pageMax %}
+        <link rel="next" href="{{ canonicalUrl ~ queryString({'page': currentPage + 1}) }}" />
     {% endif %}
 
     <title>{% if category.details[0].metaTitle %}{{ category.details[0].metaTitle }}{% else %}{{ category.details[0].name }}{% endif %}</title>

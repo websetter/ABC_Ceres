@@ -25,15 +25,14 @@
             <div class="thumb-image">
                 <div class="square-container">
                     <div class="square-inner main-image">
-                        <category-image-carousel template="#vue-category-image-carousel"
-                                                 :image-urls-data="itemData.images | itemImages(imageUrlAccessor)"
-                                                 :alt-text="itemData | itemName"
-                                                 :title-text="itemData | itemName"
-                                                 :item-url="itemData | itemURL"
-                                                 :show-dots="{{ ceresConfig.item.categoryShowDots | json_encode }}"
-                                                 :show-nav="{{ ceresConfig.item.categoryShowNav | json_encode }}"
-                                                 :enable-carousel="{{ enableCarousel }}"
-                                                 ref="categoryImageCarousel">
+                    <category-image-carousel template="#vue-category-image-carousel"
+                                                :image-urls-data="item.images | itemImages(imageUrlAccessor)"
+                                                :alt-text="item | itemName"
+                                                :title-text="item | itemName"
+                                                :item-url="item | itemURL"
+                                                :enable-carousel="{{ enableCarousel }}"
+                                                :disable-carousel-on-mobile="disableCarouselOnMobile"
+                                                ref="categoryImageCarousel">
                         </category-image-carousel>
                     </div>
                 </div>
@@ -42,22 +41,22 @@
             <div class="thumb-content">
               <div class="prices">
                 <div class="price">
-                    ${ itemData.prices.default.unitPrice.formatted }
+                    ${ item.prices.default.unitPrice.formatted }
                 </div>
                   <del class="crossprice">
-                    <span v-if="itemData.prices.rrp && itemData.prices.rrp.price.value > 0 && itemData.prices.rrp.price.value > itemData.prices.default.unitPrice.value">
-                      {{ trans("ABC::Template.UVP") }} ${ itemData.prices.rrp.price.formatted }</span>
+                    <span v-if="item.prices.rrp && item.prices.rrp.price.value > 0 && item.prices.rrp.price.value > item.prices.default.unitPrice.value">
+                      {{ trans("ABC::Template.UVP") }} ${ item.prices.rrp.price.formatted }</span>
                   </del>
                   <div class="vat">
-                    <p>{{ trans("ABC::Template.mwst") }} ${ itemData.prices.default.vat.value}%<br><a href="/dekonex-europe/versandkosten/">{{ trans("ABC::Template.vkost") }}<br>(<strong>{{ trans("ABC::Template.inDE") }}</strong>)</a></p>
+                    <p>{{ trans("ABC::Template.mwst") }} ${ item.prices.default.vat.value}%<br><a href="/dekonex-europe/versandkosten/">{{ trans("ABC::Template.vkost") }}<br>(<strong>{{ trans("ABC::Template.inDE") }}</strong>)</a></p>
                   </div>
               </div>
               <div class="article-btn">
-                <a class="btn" :href="itemData | itemURL" title="zum Artikel"><span class="fa fa-chevron-right"></span> zum Artikel</a>
-            </div>
-            <div class="basket-btn">
-            {{ AddToBasket.printVueComponent( "itemData",true,true) }}
-            </div>
+                  <a class="btn" :href="item | itemURL" title="zum Artikel"><span class="fa fa-chevron-right"></span> zum Artikel</a>
+              </div>
+              <div class="basket-btn">
+                {{ AddToBasket.printVueComponent( "item", false, false, { ":has-price": "item | hasItemDefaultPrice" }, "urlWithVariationId" ) }}
+              </div>
               </div>
 
         </div>

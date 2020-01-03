@@ -103,12 +103,18 @@
 </div>
 </header>
 
-{% if category.linklist == "Y" %}
-  {% set initialCategory = {
-    id: category.id
-  } %}
-{% else %}
-  {% set initialCategory = category %}
-{% endif %}
+<div>
+    {% if category.linklist == "Y" %}
+        {% set initialCategory = { id: category.id } %}
+    {% else %}
+        {% set initialCategory = category %}
+    {% endif %}
 
-<mobile-navigation :navigation-tree-data="{{ categories | json_encode }}" :initial-category="{{ initialCategory | json_encode }}" template="#vue-mobile-navigation"></mobile-navigation>
+    {# set the initialCategory to the default category of the current item #}
+    {% if services.template.isCurrentTemplate("tpl.item") and defaultCategory is not null %}
+        {% set initialCategory = defaultCategory %}
+    {% elseif services.template.isCurrentTemplate('tpl.home.category') %}
+        {% set initialCategory = null %}
+    {% endif %}
+    <mobile-navigation :initial-category="{{ initialCategory | json_encode }}" :include-language="{{ urls.includeLanguage | json_encode }}"></mobile-navigation>
+</div>

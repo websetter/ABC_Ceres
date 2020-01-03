@@ -1,5 +1,5 @@
 {
-    "version"           :   "0.0.1",
+    "version"           :   "2.0.0",
     "name"              :   "ABC",
     "marketplaceName"   :   {"de":"ABC_Ceres","en":"ABC_Ceres"},
     "pluginIcon"        :   "icon_plugin_xs.png",

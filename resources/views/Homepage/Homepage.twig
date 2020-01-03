@@ -24,30 +24,7 @@
 {% endblock %}
 
 {% block PageBody %}
-
-    {% if ceresConfig.homepage.showShopBuilderContent or request.get('isContentBuilder') == 1 %}
-
-        <div class="home container-max">
-            <div class="row">
-                <div class="col">
-                    {% for content in container("Ceres::Homepage") if content.plugin == "Plenty" %}
-                        {{ content.result|raw }}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-    {% else %}
-
-
-        {% block ThemeHomepage %}
-          <main>
-            {% include 'ABC::Homepage.ABCHomepage.twig' %}
-          </main>
-        {% endblock %}
-
-    {% endif %}
-
-
-
+    <main>
+      {% include 'ABC::Homepage.ABCHomepage.twig' %}
+    </main>
 {% endblock %}
