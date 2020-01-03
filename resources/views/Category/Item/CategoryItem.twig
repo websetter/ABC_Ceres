@@ -4,19 +4,13 @@
 
 {% block PageBody %}
 
-    {{ component( "ABC::ItemList.Components.Filter.ItemFilterList") }}
-    {{ component( "Ceres::ItemList.Components.Filter.ItemFilterTagList") }}
-    {{ component( "ABC::ItemList.Components.ItemList") }}
-    {{ component( "Ceres::ItemList.Components.CategoryImageCarousel") }}
-    {{ component( "Ceres::ItemList.Components.ItemListSorting") }}
-    {{ component( "Ceres::ItemList.Components.ItemsPerPage") }}
-    {{ component( "Ceres::ItemList.Components.Pagination") }}
-    {{ component( "ABC::ItemList.Components.CategoryItem" ) }}
-
-    {% set shippingCat = config("Ceres.global.shippingCostsCategoryId") %}
+    {% set listType = isSearch ? "itemsearch" : "categoryitem" %}
     {% set sliderCat = services.category.get(category.id, lang) %}
 
-{% if category is defined and itemList is not empty %}
+    {{ component( "ABC::ItemList.Components.CategoryItem" ) }}
+
+
+{% if not isSearch %}
 <div id="nohome">
   <div id="slider">
     {{ sliderCat.details.first.description2 | raw }}
@@ -35,8 +29,14 @@
         {% include "Ceres::Category.Item.Partials.ItemsPerPage" with { 'itemsPerPage': searchOptions.itemsPerPage, 'selectedValue': itemsPerPage } %}
       </div>
       <hr>
-      {% if category is not defined and itemList is not empty %}
-      <h2>{{ trans("Ceres::Template.itemSearchResults") }} <strong>{{ searchString }}</strong></h2>
+      {% if isSearch %}
+        <h2>
+          {% if isTag %}
+              {{ trans("Ceres::Template.tagSearchResults", {"searchString": searchString}) }}
+          {% else %}
+              {{ trans("Ceres::Template.itemSearchResults") }} {{ searchString }}
+          {% endif %}
+        </h2>
       {% else %}
       <h2>{{ category.details[0].name}}</h2>
       {% endif %}
@@ -45,11 +45,16 @@
           {% for item in itemList %}
               <li class="col-xs-12 col-sm-6">
                 <category-item
-                    :item-data="{{ item.data | json_encode }}"
-                    :decimal-count="{{ decimalCount }}">
-                    <template slot="BeforePrices">{{ LayoutContainer.show("Ceres::CategoryItem.BeforePrices", item.data) }}</template>
-                    <template slot="AfterPrices">{{ LayoutContainer.show("Ceres::CategoryItem.AfterPrices", item.data) }}</template>
-                </category-item>
+                     item-data-ref="{{ item.data | json_data }}"
+                     :decimal-count="{{ ceresConfig.item.storeSpecial }}">
+                     <template #before-prices>{{ LayoutContainer.show("Ceres::CategoryItem.BeforePrices", item.data) }}</template>
+                     <template #after-prices>{{ LayoutContainer.show("Ceres::CategoryItem.AfterPrices", item.data) }}</template>
+
+                     <a href="{{ item.data | itemURL }}" class="small">
+                         <i class="fa fa-image"></i>
+                         <span>{{ item.data | itemName }}</span>
+                     </a>
+                 </category-item>
               </li>
           {% endfor %}
       </ul>
@@ -59,10 +64,9 @@
 {% endblock %}
 
 {% block PartialHead %}
-    <script type="application/ld+json">{"@context": "http://schema.org","@type": "WebSite","url": "{{ webstoreConfig.domainSsl }}","potentialAction":{"@type": "SearchAction","target": "{{ domainSsl }}/search?query={search_term}","query-input": "required name=search_term"}}</script>
-
+{% set canonicalUrl = services.url.getCanonicalURL() %}
     {% if currentPage - 1 > 0 %}
-      <link rel="prev" href="{{ canonicalUrl ~ queryString({'page': currentPage - 1}) }}" />
+        <link rel="prev" href="{{ canonicalUrl ~ queryString({'page': currentPage - 1}) }}" />
     {% endif %}
 
     {% if currentPage + 1 <= pageMax %}
