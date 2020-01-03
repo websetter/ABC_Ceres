@@ -26,9 +26,11 @@
                     <div class="icon">
                         <div class="square-container" v-if="shippingProfile.icon">
                             <div class="square-inner center-xy">
-                                <img v-if="shippingProfile.parcelServicePresetId === 8" src="https://assets.aftership.com/couriers/svg/gls.svg" :alt="shippingProfile.parcelServiceName" :title="shippingProfile.parcelServiceName">
-                                <img v-else :src="shippingProfile.icon" :alt="shippingProfile.parcelServiceName" :title="shippingProfile.parcelServiceName" >
+                                <img :src="shippingProfile.icon" :alt="shippingProfile.parcelServiceName" :title="shippingProfile.parcelServiceName" >
                             </div>
+                        </div>
+                        <div v-else>
+                          <img v-if="shippingProfile.parcelServicePresetId === 8" src="https://assets.aftership.com/couriers/svg/gls.svg" :alt="shippingProfile.parcelServiceName" :title="shippingProfile.parcelServiceName">
                         </div>
                     </div><!--
                     --><div class="content">
