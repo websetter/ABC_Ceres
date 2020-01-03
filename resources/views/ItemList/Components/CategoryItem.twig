@@ -55,7 +55,7 @@
                   <a class="btn" :href="item | itemURL" title="zum Artikel"><span class="fa fa-chevron-right"></span> zum Artikel</a>
               </div>
               <div class="basket-btn">
-                {{ AddToBasket.printVueComponent( "item", false, true, { ":has-price": "item | hasItemDefaultPrice" }, "urlWithVariationId" ) }}
+                {{ AddToBasket.printVueComponent( "item", true, true, { ":has-price": "item | hasItemDefaultPrice" }, "urlWithVariationId" ) }}
               </div>
               </div>
 
