@@ -1,131 +1,25 @@
 {% import "Ceres::Basket.Macros.AddToBasket" as AddToBasket %}
+{% import "Ceres::Item.Macros.AgeRestriction" as AgeRestriction %}
 
 {% set itemData = config("Ceres.item.data") | split(', ') %}
-{% set enabledRoutes = config("IO.routing.enabled_routes") | split(', ') %}
-{% set shippingCat = config("Ceres.global.shippingCostsCategoryId") %}
-
-
 
 <script type="x/template" id="vue-single-item">
-  <div>
     <main>
+      <slot :getDataField="getDataField" :getFilteredDataField="getFilteredDataField">
       <div class="single container-max page-content">
         <div class="row">
-        <div class="col-xs-12">
-        <p class="center">
-        <a class="backToCat" href="/{% for category in categoryBreadcrumbs[:categoryBreadcrumbs | length - 1] if not break %}{% if category.level == 1 %}{{ category.details[0].nameUrl }}{% else %}{% set break = true %}{% endif %}{% endfor %}">
-        <i class="fa fa-chevron-left"></i> {{ trans("ABC::Template.back") }}</a></p>
-          <hr>
-          <h1 class="itemTitle">${ currentVariation | itemName } ${ currentVariation.texts.name2 }</h1>
-          <div class="imageBox margin-top-15 margin-bottom-3">
-            <slot name="ImageCarousel"></slot>
-          </div>
-        </div>
-        <div class="col-lg-8 col-sm-12 col-xs-12">
-          <p class="rating">
-            <slot name="BeforePrice"></slot>
-          </p>
-          <p class="producer" v-if="currentVariation.filter.hasManufacturer">{{ trans("ABC::Template.hersteller") }}: ${ currentVariation.item.manufacturer.externalName }</p>
-          <p class="articlenumber">{{ trans("Ceres::Template.singleItemNumber") }}: ${ currentVariation.variation.number }</p>
-          <p v-if="currentVariation.variation.availability" class="availability">{{ trans("ABC::Template.verfugbarkeit") }}: ${ currentVariation.variation.availability.names.name }</p>
-        </div>
-        <div class="col-lg-4 col-sm-12 col-xs-12 margin-top-sm-4">
-          <div class="prices">
-            {% if ('item.recommendedPrice' in itemData or 'all' in itemData) %}
-              <div class="crossprice" v-if="currentVariation.prices.rrp && currentVariation.prices.rrp.price.value > 0 && currentVariation.prices.rrp.price.value > currentVariation.prices.default.price.value">
-                <del class="text-muted small">
-                  {{ trans("ABC::Template.UVP") }}
-                  ${ currentVariation.prices.rrp.price.formatted }
-                </del>
-              </div>
-            {% endif %}
-            <div class="price">
-              <span ref="variationTotalPrice" :content="currentVariation.prices.default.price.value">
-                ${ variationTotalPrice | currency(currentVariation.prices.default.currency) }
-              </span>
-              <span :content="currentVariation.prices.default.currency"></span>
-            </div>
-            <div class="base-price text-muted" v-if="currentVariation.unit">
-              <div v-if="currentVariation.variation.mayShowUnitPrice">
-                {{ trans("Ceres::Template.singleItemUnitPrice") }}
-                <span class="base-price-value">
-                  ${ variationGraduatedPrice.basePrice }
-                </span>
-              </div>
-            </div>
-            <graduated-prices template="#vue-graduated-prices"></graduated-prices>
-            <slot name="AfterPrice"></slot>
-            <div class="vat">
-              <p>
-                {{ trans("ABC::Template.mwst") }} ${ currentVariation.prices.default.vat.value }%<br>
-                <a href="/dekonex-europe/versandkosten/">{{ trans("ABC::Template.vkost") }}<br>
-               <strong>({{ trans("ABC::Template.inDE2") }})</strong></a>
-              </p>
-            </div>
-          </div>
-        </div>
 
-        <div class="col-xs-12">
-          <!-- Variation -->
-          <div class="variation" v-if="variations.length > 1">
-            <variation-select template="#vue-variation-select" :attributes="attributeNameMap" :variations="variations" :preselect="currentVariation.variation.id" @is-valid-change="isVariationSelected = $event"></variation-select>
-          </div>
-          <!-- /Variation -->
-          <!-- Item Bundle -->
-          <item-bundle :bundle-type="currentVariation.variation.bundleType" :bundle-components="currentVariation.bundleComponents"></item-bundle>
-          <!-- /Item Bundle -->
-          <slot name="BeforeAddToBasket"></slot>
-          {{ AddToBasket.printVueComponent(
-                    "currentVariation",
-                    false,
-                    true,
-                    {
-                        ":missing-order-properties":"variationMissingProperties",
-                        ":is-variation-selected": "isVariationSelected && currentVariation.filter.isSalable"
-                    }
-                ) }}
-          <slot name="AfterAddToBasket"></slot>
-        </div>
+        {% include "ABC::Item.Components.SingleItem.SingleItem_Details" %}
         <hr>
-        <!-- ITEM DESCRIPTION -->
-        <div class="borderRight col-lg-8 col-sm-12 col-xs-12">
-          {% if 'item.description' in itemData or 'all' in itemData %}
-            <h2>Artikelbeschreibung</h2>
-            <div id="description" v-html="currentVariation.texts.description"></div>
-          {% endif %}
-          <div v-if="currentVariation.texts.technicalData">
-            <hr>
-            <h2>Technische Daten</h2>
-            <div id="technicaldata" v-html="currentVariation.texts.technicalData"></div>
-          </div>
-          <hr>
-          <p class="center margin-top-2">
-          <a class="backToCat" href="/{% for category in categoryBreadcrumbs[:categoryBreadcrumbs | length - 1] if not break %}{% if category.level == 1 %}{{ category.details[0].nameUrl }}{% else %}{% set break = true %}{% endif %}{% endfor %}">
-          <i class="fa fa-chevron-left"></i> {{ trans("ABC::Template.back") }}</a></p>
+        {% include "ABC::Item.Components.SingleItem.SingleItem_Info" %}
         </div>
-        <!-- ./ITEM DESCRIPTION -->
-        <div class="col-lg-4 col-sm-12 col-xs-12">
-					<div id="questions">
-						<span class="redBox"><i class="fa fa-question"></i></span>
-						<h4>Noch Fragen?</h4>
-						<p>Wir helfen Ihnen gerne weiter!</p>
-						<p class="margin-bottom-0"><a href="tel:07021507514" title="Rufen Sie uns an!"><i class="fa fa-phone"></i> +49 7021 / 50 75 14</a></p>
-						<p><a href="mailto:verkauf@abc-einkochautomaten.de" title="Schreiben Sie uns!"><i class="fa fa-envelope"></i> verkauf@abc-einkochautomaten.de</a></p>
-						<p class="margin-top-3">Oder schreiben SIe uns über das</p>
-						<a class="btn cart" href="/contact" target="_blank" title="Zum Kontaktformular">Kontaktformular</a>
-					</div>
-					<div id="rating" class="margin-top-8">
-					     <span class="redBox"><i class="fa fa-star"></i></span>
-				      <slot name="FeedbackContainer"></slot>
-					</div>
-				</div>
-        </div>
-        <slot name="ItemListContainer"></slot>
+        <slot name="item-list-container"></slot>
+
         <div class="trusted">
           <slot name="ReviewStarContainer"></slot>
           <slot name="ReviewContainer"></slot>
         </div>
       </div>
+      </slot>
   </main>
-</div>
 </script>

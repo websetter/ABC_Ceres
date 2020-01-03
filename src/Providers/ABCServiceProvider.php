@@ -9,7 +9,6 @@ use IO\Helper\TemplateContainer;
 use IO\Helper\ComponentContainer;
 use IO\Extensions\Functions\Partial;
 use Plenty\Plugin\ConfigRepository;
-use ABC\Contexts\MyContext;
 use IO\Services\ItemSearch\Helper\ResultFieldTemplate;
 
 /**
@@ -29,12 +28,6 @@ class ABCServiceProvider extends ServiceProvider
     {
 
         $enabledOverrides = explode(", ", $config->get("ABC.templates.override"));
-
-        $dispatcher->listen('IO.ResultFields.*', function(ResultFieldTemplate $templateContainer) {
-            $templateContainer->setTemplates([ ResultFieldTemplate::TEMPLATE_LIST_ITEM => 'ABC::ResultFields.ListItem' ]);
-        }, 0);
-
-
 
         // Override partials
         $dispatcher->listen('IO.init.templates', function (Partial $partial) use ($enabledOverrides)
