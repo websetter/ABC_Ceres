@@ -3,28 +3,36 @@
 {% import "Ceres::PageDesign.Macros.LayoutContainer" as LayoutContainer %}
 
 {% set showDefaultHomepage = config("Ceres.default.homepage") %}
-{% set companyLogo  = config("Ceres.header.company_logo") %}
-{% set companyName  = trans("Ceres::Template.headerCompanyName") %}
+{% set companyLogo = config("Ceres.header.company_logo") %}
+{% set companyName = trans("Ceres::Template.headerCompanyName") %}
 
 {% block PartialHead %}
-    <meta name="description" content="{{ trans('Ceres::Template.homepageMetaDescription') }}">
-    <meta name="robots" content="{{ config("Ceres.meta.robots_home") }}">
+  <meta name="description" content="{{ trans('Ceres::Template.homepageMetaDescription') }}">
+  <meta name="robots" content="{{ config(" ceres.meta.robots_home") }}"="Ceres.meta.robots_home") }}"">
 
-    <meta property="og:title" content="{{ companyName }}"/>
-    <meta property="og:type" content="article"/>
-    <meta property="og:url" content="{{ services.webstoreConfig.getWebstoreConfig().domainSsl }}"/>
-    <meta property="og:image"
-          content="{% if ('http' in companyLogo) or ('layout/' in companyLogo) %}{{ companyLogo }}{% else %}{{ plugin_path('Ceres') }}/{{ companyLogo }}{% endif %}"/>
+  <meta property="og:title" content="{{ companyName }}"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="{{ services.webstoreConfig.getWebstoreConfig().domainSsl }}"/>
+  <meta property="og:image" content="{% if ('http' in companyLogo) or ('layout/' in companyLogo) %}{{ companyLogo }}{% else %}{{ plugin_path('Ceres') }}/{{ companyLogo }}{% endif %}"/>
 
-    <script type="application/ld+json">
-        {"@context": "http://schema.org","@type": "WebSite","url": "{{ services.webstoreConfig.getWebstoreConfig().domainSsl }}","potentialAction":{"@type": "SearchAction","target": "{{ services.webstoreConfig.getWebstoreConfig().domainSsl }}/search?query={search_term}","query-input": "required name=search_term"}}
-    </script>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "url": "{{ services.webstoreConfig.getWebstoreConfig().domainSsl }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ services.webstoreConfig.getWebstoreConfig().domainSsl }}/search?query={search_term}",
+        "query-input": "required name=search_term"
+      }
+    }
+  </script>
 
-    <title>{{ companyName }}</title>
+  <title>{{ companyName }}</title>
 {% endblock %}
 
 {% block PageBody %}
-    <main>
-      {% include 'ABC::Homepage.ABCHomepage.twig' %}
-    </main>
+  <main>
+    {% include 'ABC::Homepage.ABCHomepage.twig' %}
+  </main>
 {% endblock %}
