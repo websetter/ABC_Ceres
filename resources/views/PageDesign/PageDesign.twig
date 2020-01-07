@@ -38,7 +38,6 @@
     {% for styleTemplate in get_additional_styles() %}
         {% include styleTemplate.path ignore missing with styleTemplate.params %}
     {% endfor %}
-
     <script type="application/ld+json" > {
         "@context": "http://schema.org",
         "@type": "Organization",
