@@ -38,6 +38,39 @@
     {% for styleTemplate in get_additional_styles() %}
         {% include styleTemplate.path ignore missing with styleTemplate.params %}
     {% endfor %}
+
+    <script type="application/ld+json" > {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "ABC Einkochautomaten",
+        "url": "https://www.abc-einkochautomaten.de",
+        "contactPoint": [{
+            "@type": "ContactPoint",
+            "telephone": "+497021507514",
+            "contactType": "customer service",
+            "contactOption": "TollFree",
+            "areaServed": "DE",
+            "availableLanguage": ["German"]
+        }]
+          }
+      </script>
+      <script type="application/ld+json" > {
+          "@context": "http://schema.org",
+          "@type": "LocalBusiness",
+          "name": "ABC Einkochautomaten",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Kirchheim-Teck",
+              "addressRegion": "Germany",
+              "postalCode": "73230",
+              "streetAddress": "Hans-Böckler-Straße 33"
+            },
+            "telephone": "+497021507514",
+            "url": "https://www.abc-einkochautomaten.de",
+            "image": "https://cdn02.plentymarkets.com/ufyco6cvmmqs/frontend/ceres/img/dekonex-europe-gmbh-logo.jpg"
+      }
+      </script>
+
 </head>
 
 <body class="{{ bodyClasses | join(' ') }}">
