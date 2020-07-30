@@ -38,18 +38,7 @@
                 </div>
             </div>
 
-            <!-- STORE SPECIALS -->
-            <slot name="store-special">
-                <item-store-special v-if="storeSpecial || item.variation.bundleType == 'bundle'"
-                                    :store-special="storeSpecial"
-                                    :recommended-retail-price="item.prices.rrp"
-                                    :variation-retail-price="item.prices.default"
-                                    :special-offer-price="item.prices.specialOffer"
-                                    :decimal-count="decimalCount"
-                                    :bundle-type="item.variation.bundleType"></item-store-special>
-            </slot>
-            <!-- ./STORE SPECIALS -->
-
+          
             <div class="thumb-content">
               <div class="prices">
                 <div class="price">
