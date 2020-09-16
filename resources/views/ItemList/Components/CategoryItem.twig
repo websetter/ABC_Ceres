@@ -38,7 +38,11 @@
                 </div>
             </div>
 
-          
+            <div v-if="item.variation.availability.id == 10" class="status">
+              <span>{{ trans("ABC::Template.soldout") }}</span>
+            </div>
+
+
             <div class="thumb-content">
               <div class="prices">
                 <div class="price">
