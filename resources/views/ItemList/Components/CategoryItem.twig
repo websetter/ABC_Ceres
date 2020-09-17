@@ -39,7 +39,7 @@
             </div>
 
             <div class="thumb-content">
-              <div class="hidden status">
+              <div v-if="item.stock.net <= 0" class="status">
                 <span>{{ trans("ABC::Template.soldout") }}</span>
               </div>
               <div class="prices">
